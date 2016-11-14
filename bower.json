@@ -1,0 +1,24 @@
+{
+  "name": "wevivu",
+  "authors": [
+    "ThienLV <ohmygodvt95@gmail.com>"
+  ],
+  "description": "package for wevivu.com",
+  "main": "",
+  "keywords": [
+    "wevivu",
+    "we",
+    "vivu",
+    "lengkeng"
+  ],
+  "license": "MIT",
+  "homepage": "https://wevivu.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ]
+}
