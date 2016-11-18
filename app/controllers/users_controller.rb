@@ -23,17 +23,15 @@ class UsersController < ApplicationController
     @user.avatar = "https://viblo.asia/img/categories/320/ruby.png"
     @user.cover = "https://viblo.asia/img/categories/320/ruby.png"
 
-    respond_to do |format|
 
       if @user.save
         #format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: {status: 'success', data: {email: @user.email}}, status: :ok}
+        render json: {status: 'success', data: {email: @user.email}}, status: :ok
       else
         #format.html { render :new }
-        format.json { render json:{status: 'failure', data: @user.errors}, status: :unprocessable_entity }
+         render json:{status: 'failure', data: @user.errors}, status: :unprocessable_entity
       end
     end
-  end
 
 
   # PATCH update a user
@@ -60,7 +58,7 @@ class UsersController < ApplicationController
 
   private
       def user_params
-    params.require(:user).permit(:email, :password, :name, :password_confirmation, :date_of_birth, :sex)
+    params.require(:user).permit(:email, :password, :name, :password_confirmation)
   end
 
   private
@@ -68,7 +66,8 @@ class UsersController < ApplicationController
         params.require(:user).permit(  :name,  :date_of_birth, :sex, :avatar, :cover)
       end
 
-
-
-
 end
+
+
+
+
