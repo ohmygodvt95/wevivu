@@ -1,0 +1,9 @@
+<% if logged_in? %>
+
+<% else %>
+    <div class="hero center-block text-center">
+      <h1>Welcome to <span>Wevivu</span></h1>
+      <h3>Cùng khám phá  Việt  Nam </h3>
+      <p><md-button class="md-raised md-warn btn-hero md-lg" aria-label="tham gia" ng-click="showLoginAndSignupForm($event)">Tham Gia <i class="fa fa-caret-right"></i></md-button></p>
+    </div>
+<% end %>
