@@ -4,11 +4,16 @@
   <title>Wevivu</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
-
+<body ng-app="wevivu" <%=raw logged_in? == false ? 'ng-controller="LoginController"': ''%> >
+  <%= render 'layouts/navbar' %>
+  <div class="main">
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
+  <script src="/js/app.js"></script>
+  <script src="/js/controllers/loginController.js"></script>
 </body>
 </html>
