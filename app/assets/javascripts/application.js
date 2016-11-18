@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap/dist/js/bootstrap.min
 //= require angular/angular.min
+//= require angular-aria/angular-aria.min
 //= require angular-animate/angular-animate.min
 //= require angular-material/angular-material.min
 //= require_self
