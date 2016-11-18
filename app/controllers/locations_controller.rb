@@ -18,16 +18,17 @@ class LocationsController < ApplicationController
     keyword=params[:keyword]
     #arr chinnh
     location_array=[]
+
     letter_arr=keyword.split(' ')
-    letter_arr.each do |a|
-      tmp=Location.where("keywords like ?","%#{a}%" )
+    letter_arr.each do |letter|
+
+      tmp=Location.where("keywords like ?","%#{letter}%" )
       tmp.each do |ele|
         #check duplicate de khong add vao array
         if(location_array.include?ele)
         else
           location_array << ele
         end
-
 
       end
     end
