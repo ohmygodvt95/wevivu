@@ -13,7 +13,7 @@ app.controller('LoginController', function ($scope, $mdDialog) {
         });
     };
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController($scope, $mdDialog, $http) {
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -24,7 +24,9 @@ app.controller('LoginController', function ($scope, $mdDialog) {
         };
 
         $scope.login = function (user) {
-            console.log(user);
+            $http.post(app.version + 'session', user).then(function(response){
+                console.log(response.data);
+            });
         };
 
         $scope.register = function (user) {
