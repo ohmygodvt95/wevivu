@@ -1,3 +1,6 @@
+var app = angular.module("wevivu", ['ngMaterial']);
+app.version = '/api/v1/'
+
 app.controller('LoginController', function ($scope, $mdDialog) {
 
     $scope.showLoginAndSignupForm = function (ev) {
@@ -13,7 +16,7 @@ app.controller('LoginController', function ($scope, $mdDialog) {
         });
     };
 
-    function DialogController($scope, $mdDialog, $http, $window) {
+    function DialogController($scope, $mdDialog, $http, $window, $interval) {
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -28,11 +31,23 @@ app.controller('LoginController', function ($scope, $mdDialog) {
                 if(response.data.status == 'success'){
                     $window.location.reload();
                 }
+                else {
+                    $scope.loginError.show = true;
+                    $scope.loginError.data = response.data.data.error;
+                }
             });
         };
 
         $scope.register = function (user) {
-            console.log(user);
+            $http.post(app.version + 'users', user).then(function (response) {
+                if (response.data.status == 'success') {
+                    $window.location.reload();
+                }
+                else {
+                    $scope.loginError.show = true;
+                    $scope.loginError.data = response.data.data.error;
+                }
+            });
         };
     }
 });
