@@ -4,30 +4,20 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def show
-
     @post = Post.find(params[:id])
     arr = [0, 0, 0, 0, 0]
-    ratetotal = 0
     for i in 0..4
       arr[i] = @post.rates.where(:point => (i+1)).count
-      ratetotal += arr[i]*(i+1)
     end
-    ratetb = ratetotal/5.0
-    @image = @post.images
-    # @user = User.find(@post.user_id)
-    # a = Rate.where(:user_id=>)
-    render json: {status: "success", data: {post: @post, rate: arr, rate_tb: ratetb, images: @image}}, status: :ok
+    if (arr[0] + arr[1] + arr[2] + arr[3] + arr[4]) != 0
+      rate_tb = (arr[0] * 1 + arr[1] * 2 + arr[2] * 3 + arr[3] * 4 + arr[4] * 5) /
+          (arr[0] + arr[1] + arr[2] + arr[3] + arr[4])
+    else
+      rate_tb = 0
+    end
+    @comment = @post.comments.last(10)
+    render json: {status: "success", data: {post: @post.as_json(include: [:images,:location,{user: {only: [:name,:avatar]}} ]) , rate: arr, rate_tb: rate_tb,comments:@comment.as_json(include: {user: {only: [:id, :name, :avatar]}})}}, status: :ok
 
-  end
-
-  # GET /posts/:id/:page
-  def getcomment
-
-    @post = Post.find(params[:id])
-    offset = Integer(params[:page])*10
-
-    @comment = @post.comments.limit(10).offset(offset)
-    render json: {status: "success", data: {comment: @comment}}, status: :ok
   end
 
   def new
@@ -43,10 +33,10 @@ class PostsController < ApplicationController
     if @post.save
       params[:images].each do |i|
         Image.new(user_id: @post.user_id, post_id: @post.id, src: i).save
-
       end
       @image = @post.images
-      render json: {status: "success", data: @post, images: @image}, status: :ok
+      @location = Location.find(params[:id_location])
+      render json: {status: "success", data: @post, location: @location, images: @image}, status: :ok
 
     else
       render json: @post.errors, status: 404
@@ -75,9 +65,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     @post.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    render json: {status: "success"}, status: :ok
   end
 
   private

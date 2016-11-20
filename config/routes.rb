@@ -5,7 +5,33 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-
+  scope :api do
+    scope :v1 do
+      # comment
+      scope :comments do
+        get '/:post_id' => 'comments#show'
+        post '/' => 'comments#create'
+        patch '/:id' => 'comments#update'
+        put '/:id' => 'comments#update'
+        delete '/:id' => 'comments#destroy'
+      end
+    #   post
+      scope :posts do
+        get '/:id' => 'posts#show'
+        post '/' => 'posts#create'
+        patch '/:id' => 'posts#update'
+        put '/:id' => 'posts#update'
+        delete '/:id' => 'posts#destroy'
+      end
+      # image
+      scope :images do
+        get '/:id' => 'images#show'
+        patch '/:id' => 'images#update'
+        put '/:id' => 'images#update'
+        delete '/:id' => 'images#destroy'
+      end
+      end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
