@@ -6,14 +6,33 @@
   <%= javascript_include_tag 'application' %>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <%= csrf_meta_tags %>
+  <% if logged_in? %>
+      <meta userid="<%= current_user.id %>">
+  <% end %>
 </head>
 <body ng-app="wevivu" <%=raw logged_in? == false ? 'ng-controller="LoginController"': ''%> >
   <%= render 'layouts/navbar' %>
-  <div class="main">
-    <%= yield %>
-  </div>
+  <% if logged_in? %>
+    <div class="app">
+      <%= render 'layouts/view' %>
+    </div>
+
+<% else %>
+    <div class="main">
+      <%= yield %>
+    </div>
+<% end %>
+
   <%= render 'layouts/footer' %>
-  <script src="/js/app.js"></script>
-  <script src="/js/controllers/loginController.js"></script>
+
+
+<% if logged_in? %>
+    <script src="https://passy.github.io/angular-masonry/angular-masonry.js"></script>
+    <script src="https://passy.github.io/angular-masonry/bower_components/imagesloaded/imagesloaded.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/controllers/homeController.js"></script>
+<% else %>
+    <script src="/js/controllers/loginController.js"></script>
+<% end %>
 </body>
 </html>
