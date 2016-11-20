@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+
+  root 'home#index'
   # post 'api/v1/signup' => 'users#create'
   # get 'api/v1/users/:id' => 'users#show'
   get 'locations/search' => 'locations#search'
@@ -16,9 +17,12 @@ Rails.application.routes.draw do
       get 'users/:id' => 'users#show'
       patch 'users/:id' => 'users#update'
       get 'locations/:id' => 'locations#show'
+      scope :session do
+        post '/' => 'session#create'
+        get '/' => 'session#destroy'
+      end
     end
   end
-
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

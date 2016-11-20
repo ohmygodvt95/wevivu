@@ -1,0 +1,74 @@
+<md-dialog aria-label="Form">
+        <md-dialog-content layout="row" style="min-width: 800px; min-height: 400px;">
+            <div class="container" flex="40">
+                <h3 class="text-center">Register</h3>
+                <hr>
+                <form action="" class="col-sm-10 col-sm-offset-1" name="formRegister">
+                    <md-input-container class="md-block">
+                        <md-input-group>
+                            <label for="">Họ và tên</label>
+                            <input type="text" ng-model="registerInfo.user.name" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <md-input-group>
+                            <label for="">Email</label>
+                            <input type="email" ng-model="registerInfo.user.email" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <md-input-group>
+                            <label for="">Password</label>
+                            <input type="password" ng-model="registerInfo.user.password" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <md-input-container class="md-block" >
+                        <md-input-group>
+                            <label for="">Password confirmation</label>
+                            <input type="password" ng-model="registerInfo.user.password_confirmation" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <div flex-gt-xs>
+                        <md-datepicker ng-model="registerInfo.user.date_of_birth" md-placeholder="Enter date"></md-datepicker>
+                    </div>
+                    <md-input-container class="md-block">
+                        <label for="">Sex</label>
+                        <md-select ng-model="registerInfo.user.sex" placeholder="Sex" ng-model="user.sex" required>
+                            <md-option value="0">Nam</md-option>
+                            <md-option value="1">Nữ</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-raised md-primary btn-block" ng-disabled="!formRegister.$valid" ng-click="register(registerInfo)">Sign Up Now</md-button>
+                </form>
+            </div>
+            <div flex="20">
+                <div class="or center-block" ><span>OR</span></div>
+            </div>
+            <div class="container" flex="40">
+                <h3 class="text-center">Login</h3>
+                <hr>
+                <form action="" name="formLogin" class="col-sm-10 col-sm-offset-1">
+                    <md-input-container class="md-block">
+                        <md-input-group>
+                            <label for="">Email</label>
+                            <input type="email" ng-model="loginInfo.user.email" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <md-input-group>
+                            <label for="">Password</label>
+                            <input type="password" ng-model="loginInfo.user.password" required>
+                        </md-input-group>
+                    </md-input-container>
+                    <md-button class="md-raised md-primary" ng-disabled="!formLogin.$valid" ng-click="login(loginInfo)">Login</md-button>
+                </form>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions >
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+</md-dialog>
+
