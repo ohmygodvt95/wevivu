@@ -28,16 +28,6 @@
                             <input type="password" ng-model="registerInfo.user.password_confirmation" required>
                         </md-input-group>
                     </md-input-container>
-                    <div flex-gt-xs>
-                        <md-datepicker ng-model="registerInfo.user.date_of_birth" md-placeholder="Enter date"></md-datepicker>
-                    </div>
-                    <md-input-container class="md-block">
-                        <label for="">Sex</label>
-                        <md-select ng-model="registerInfo.user.sex" placeholder="Sex" ng-model="user.sex" required>
-                            <md-option value="0">Nam</md-option>
-                            <md-option value="1">Nữ</md-option>
-                        </md-select>
-                    </md-input-container>
                     <md-button class="md-raised md-primary btn-block" ng-disabled="!formRegister.$valid" ng-click="register(registerInfo)">Sign Up Now</md-button>
                 </form>
             </div>
@@ -47,6 +37,10 @@
             <div class="container" flex="40">
                 <h3 class="text-center">Login</h3>
                 <hr>
+
+                <div class="alert alert-danger" ng-init="loginError.show = false" ng-show="loginError.show">
+                	<strong>Error!</strong> {{ loginError.data }}
+                </div>
                 <form action="" name="formLogin" class="col-sm-10 col-sm-offset-1">
                     <md-input-container class="md-block">
                         <md-input-group>
