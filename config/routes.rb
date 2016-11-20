@@ -11,16 +11,27 @@ Rails.application.routes.draw do
 
 
   scope :api do
+
     scope :v1 do
-      post 'users/' => 'users#create'
-      get 'users/:id' => 'users#show'
-      patch 'users/:id' => 'users#update'
-      get 'locations/:id' => 'locations#show'
-      get 'locations/search' => 'locations#search'
+
+      scope :users do
+        post '/' => 'users#create'
+        get '/:id' => 'users#show'
+        patch '/:id' => 'users#update'
+      end
+
+      scope :locations do
+        get '/:id' => 'locations#show'
+        get '/search' => 'locations#search'
+      end
 
       scope :session do
         post '/' => 'session#create'
         get '/' => 'session#destroy'
+      end
+
+      scope :home do
+        get '/:type' => 'home#get_posts'
       end
     end
   end
