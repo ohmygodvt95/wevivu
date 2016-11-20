@@ -20,5 +20,9 @@
     "vendor/assets/components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "moment": "^2.16.0",
+    "angular-masonry": "^0.16.0"
+  }
 }
