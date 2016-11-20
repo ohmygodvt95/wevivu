@@ -16,16 +16,24 @@ class LocationsController < ApplicationController
 
   def search
     keyword=params[:keyword]
-    localtion_array=[]
+    #arr chinnh
+    location_array=[]
+
     letter_arr=keyword.split(' ')
-    letter_arr.each do |a|
-      tmp=Location.where("keywords like ?","%#{a}%")
+    letter_arr.each do |letter|
 
-      localtion_array << tmp unless localtion_array.include? tmp
+      tmp=Location.where("keywords like ?","%#{letter}%" )
+      tmp.each do |ele|
+        #check duplicate de khong add vao array
+        if(location_array.include?ele)
+        else
+          location_array << ele
+        end
 
+      end
     end
 
-    render json: {status: "success", data: localtion_array.uniq{ |x| x[:keywords]}}, status: 200
+    render json: {status: "success", data: location_array}, status: 200
 
   end
 

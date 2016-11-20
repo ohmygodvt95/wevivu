@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   root 'home#index'
   # post 'api/v1/signup' => 'users#create'
   # get 'api/v1/users/:id' => 'users#show'
-  get 'locations/search' => 'locations#search'
 
 
   scope :api do
@@ -17,6 +16,8 @@ Rails.application.routes.draw do
       get 'users/:id' => 'users#show'
       patch 'users/:id' => 'users#update'
       get 'locations/:id' => 'locations#show'
+      get 'locations/search' => 'locations#search'
+
       scope :session do
         post '/' => 'session#create'
         get '/' => 'session#destroy'
