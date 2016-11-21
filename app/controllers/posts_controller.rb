@@ -12,22 +12,22 @@ class PostsController < ApplicationController
       arr[i] = @post.rates.where(:point => (i+1)).count
       ratetotal += arr[i]*(i+1)
     end
-    ratetb = ratetotal/5.0
+
+    ratetb = ratetotal / 5.0
     @image = @post.images
     # @user = User.find(@post.user_id)
     # a = Rate.where(:user_id=>)
     render json: {status: "success", data: {post: @post, rate: arr, rate_tb: ratetb, images: @image}}, status: :ok
-
   end
 
   # GET /posts/:id/:page
-  def getcomment
+  def get_comments
 
     @post = Post.find(params[:id])
     offset = Integer(params[:page])*10
 
     @comment = @post.comments.limit(10).offset(offset)
-    render json: {status: "success", data: {comment: @comment}}, status: :ok
+    render json: {status: "success", data: {comments: @comment}}, status: :ok
   end
 
   def new
