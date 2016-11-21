@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 
   # GET /users/1.json
   def show
-
     begin
       @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
@@ -13,7 +12,7 @@ class UsersController < ApplicationController
     if @user.nil?
       render json:{status: "failure", data: @user}, status: 404
     else
-      render json: {status: "success", data: {email: @user}}, status: 200
+      render json: {status: "success", data: @user}, status: 200
     end
   end
   # POST create one user

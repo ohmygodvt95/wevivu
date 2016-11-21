@@ -1,3 +1,6 @@
+a:hover{
+  text-decoration: none;
+}
 .navbar-no-color{
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -19,5 +22,91 @@
   border-radius: 50%;
   text-align: center;
   line-height: 80px;
-  margin-top: 250px;
+  margin-top: 200px;
+}
+
+.home{
+  padding-top: 200px;
+  padding-bottom: 100px;
+}
+.avt{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.app{
+  background-color: #E9EBEE;
+  .col-sm-6{
+    padding: 0px 5px 0px 5px;
+  }
+  .post{
+    margin: 5px 0px 5px 0px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 1px #fff;
+    .post-avt{
+      height: 32px;
+      width: 32px;
+      margin-right: 10px;
+    }
+    .post-images img{
+      height: 64px;
+      width: 64px;
+      border-radius: 2px;
+      margin: 5px;
+    }
+  }
+}
+
+.post-dialog{
+  .img-btn{
+    top: 50%;
+    position: absolute;
+  }
+  .img-next{
+    right: 42%;
+  }
+  .img-box, .info{
+    padding: 10px;
+  }
+  .img-box{
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .avt{
+    height: 32px;
+    width: 32px;
+    margin-right: 10px;
+  }
+  .comment-avt{
+    height: 32px;
+    width: 32px;
+    margin-right: 5px;
+    border-radius: 3px;
+  }
+  ul{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    list-style: none;
+    padding-left: 0;
+    .row{
+      margin-right: 0px;
+    }
+    li{
+      margin-bottom: 2px;
+      padding-top: 10px;
+      background-color: #F6F7F9;
+      .row{
+        margin-right: 0px;
+      }
+      .col-sm-1{
+        padding: 0 0 0 15px;
+      }
+      .col-sm-11{
+        padding-left: -10px;
+        padding-right: 0;
+      }
+    }
+  }
+
 }

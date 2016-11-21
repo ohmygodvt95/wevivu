@@ -24,9 +24,7 @@ class ImagesController < ApplicationController
   def destroy
     @image = Image.find(params[:id])
     @image.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    render json: {status: "success"}, status: :ok
   end
 
   private
