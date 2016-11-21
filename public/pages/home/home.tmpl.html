@@ -1,0 +1,60 @@
+<div class="container home">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="avt">
+                <img ng-src="{{ user.avatar }}" alt="avt" class="img-responsive"/>
+                <hr>
+                <h3 class="text-center">
+                    <a href="#">{{ user.name }}</a>
+                </h3>
+                <hr>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="btn-group">
+                <button type="button" class="btn btn-lg btn-default"> Mới nhất</button>
+                <button type="button" class="btn btn-lg btn-default"> Đánh giá</button>
+                <button type="button" class="btn btn-lg btn-default"> Đã lưu</button>
+            </div>
+            <hr>
+
+            <div class="row" masonry>
+                <div class="col-sm-6 masonry-brick" ng-repeat="post in currentData.data">
+                    <div class="post">
+                        <div class="post-header">
+                            <img ng-src="{{ post.user.avatar }}" alt="user avt" class="post-avt"/>
+                            <span>
+                        <a href="#">{{ post.user.name }}</a> in <small>{{ fromNow(post.created_at) }}</small><span
+                                    class="pull-right"><i
+                                    class="fa fa-ellipsis-v"></i></span>
+                    </span>
+                        </div>
+                        <hr>
+                        <div class="post-body">
+                            <div>{{ post.body }}
+                                <br/><a href="#/" ng-click="showPostContent($event, post)"> Read more</a>
+                            </div>
+                            <br>
+                            <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">{{ post.location.name }}</a>
+                            </p>
+                            <div class="post-images">
+                                <img ng-src="{{ image.src }}" alt="{{ image.title }}" ng-repeat="image in post.images">
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            <hr>
+                            <span><i class="fa fa-fw fa-comments"></i>100</span>
+                            <span><i class="fa fa-fw fa-eye"></i>100</span>
+                            <span><i class="fa fa-fw fa-thumbs-o-up"></i>{{ post.rate.length }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3 class="text-center col-sm-12"><a href="#/" ng-click="readMore()"><i class="fa fa-fw fa-refresh"></i>Read
+                more!</a></h3>
+        </div>
+
+    </div>
+</div>
