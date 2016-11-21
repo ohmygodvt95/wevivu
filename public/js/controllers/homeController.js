@@ -52,9 +52,56 @@ app.controller('HomeController', function ($scope, $http, $mdDialog) {
     };
     $scope.init();
 
-    function PostController($scope, post) {
+    function PostController($scope, $http, post) {
+
+        $scope.imgIndex = 0;
+
         $scope.cancel = function () {
             $mdDialog.cancel();
         };
+
+        $scope.fromNow = function (time) {
+            return moment(time).fromNow();
+        };
+
+        $scope.init = function () {
+            $http.get(app.version + 'posts/' + post.id).then(function (response) {
+                if (response.data.status == 'success') {
+
+                    $scope.data = response.data.data;
+
+                    $scope.images = function (imagesArr) {
+                        //console.log(imagesArr);
+                        return imagesArr[$scope.imgIndex].src;
+                    };
+                }
+            });
+        };
+
+
+        $scope.next = function (imagesArr) {
+
+            if ($scope.imgIndex < imagesArr.length - 1) {
+                $scope.imgIndex++;
+            }
+            else if ($scope.imgIndex == imagesArr.length - 1) {
+                $scope.imgIndex = 0;
+            }
+            //console.log($scope.imgIndex, imagesArr.length);
+        };
+
+
+        $scope.prev = function (imagesArr) {
+
+            if ($scope.imgIndex > 0) {
+                $scope.imgIndex--;
+            }
+            else if ($scope.imgIndex == 0) {
+                $scope.imgIndex = imagesArr.length - 1;
+            }
+            //console.log($scope.imgIndex, imagesArr.length);
+        };
+
+        $scope.init();
     }
 });

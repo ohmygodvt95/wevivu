@@ -1,3 +1,6 @@
+small {
+  color: #A29BB5;
+}
 a:hover{
   text-decoration: none;
 }
@@ -61,8 +64,11 @@ a:hover{
 
 .post-dialog{
   .img-btn{
-    top: 50%;
+    top: 45%;
     position: absolute;
+    i {
+      color: rgba(255, 255, 255, 0.6);
+    }
   }
   .img-next{
     right: 42%;
@@ -96,6 +102,13 @@ a:hover{
       margin-bottom: 2px;
       padding-top: 10px;
       background-color: #F6F7F9;
+      .input {
+        margin: 10px;
+        border: none;
+        border-radius: 1px;
+        width: 100%;
+        padding: 2px;
+      }
       .row{
         margin-right: 0px;
       }

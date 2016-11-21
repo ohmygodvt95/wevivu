@@ -1,29 +1,31 @@
 <md-dialog aria-label="Form" style="width: 100%;  height: 100%;" class="post-dialog">
     <md-dialog-content layout="row" style="min-width: 1000px; min-height: 500px;">
         <div class="container-fluid img-box" flex="60" layout="column" layout-align="center">
-            <div class="img-btn img-next"> next</div>
-            <div class="img-btn img-prev"> prev</div>
+            <div class="img-btn img-prev" ng-click="prev(data.post.images)"><i class="fa fa-fw fa-5x fa-angle-left"></i>
+            </div>
+
+            <div class="img-btn img-next" ng-click="next(data.post.images)"><i
+                    class="fa fa-fw fa-5x fa-angle-right"></i></div>
+
             <img class="img-responsive"
-                 src="http://vuanhiepanh.com/uploads/news/doi-tuong-chup-anh/chup-phong-canh//10-loi-khuyen-chup-anh-phong-canh-song-dong-nhat_2.jpg"
+                 ng-src="{{ images(data.post.images) }}"
                  alt="current img">
         </div>
         <div class="container-fluid info" flex="40" style="overflow-y: auto;">
-
+            <p><span ng-click="cancel()" class="pull-right"><i class="fa fa-fw fa-close"></i></span></p>
             <div>
                 <a href="#/">
-                    <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
+                    <img ng-src="{{ data.post.user.avatar}}"
                          alt="avt" class="avt"/>
-                    <b>Username</b>
+                    <b>{{ data.post.user.name}}</b>
                 </a>
-                in <span>1 minus ago</span>
+                <small>in {{ fromNow(data.post.created_at) }}</small>
             </div>
             <hr>
             <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A aliquam aliquid asperiores cumque dolores doloribus ducimus eius,
-                    eos expedita explicabo illum ipsum iure magni molestias nam quo
-                    quod recusandae temporibus!</p>
-                <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">Bqac Gaing, Viet Nam</a></p>
+                <p>{{ data.post.body }}</p>
+                <hr>
+                <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">{{ data.post.location.name }}</a></p>
             </div>
             <hr>
             <div>
@@ -37,277 +39,30 @@
             <hr>
             <div>
                 <ul>
-                    <li class="row">
+                    <li class="row" ng-repeat="comment in data.comments">
                         <div class="col-sm-1">
                             <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
+                                <img ng-src="{{ comment.user.avatar}}"
+                                     alt="avt" class="comment-avt"/>
                             </a>
                         </div>
                         <div class="col-sm-11">
                             <p>
                                 <a href="#/" class="fa-fw">
-                                    <b>Username</b>
+                                    <b>{{ comment.user.name}}</b>
                                 </a>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                A aliquam aliquid asperiores cumque dolores doloribus ducimus eius,
-                                eos expedita explicabo illum ipsum iure magni molestias nam quo
-                                quod recusandae temporibus!
+                                {{ comment.body}}
                                 <br>
-                                <small>in a minus ago</small>
+                                <small>{{ fromNow(comment.created_at) }}</small>
                             </p>
 
                         </div>
                     </li>
                     <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
+                        <div class="col-sm-12">
+                            <input type="text" class="input" placeholder="Input something...">
                         </div>
                     </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-1">
-                            <a href="#/">
-                                <img src="http://vignette2.wikia.nocookie.net/thronerush/images/d/d0/480px-Mage.jpg/revision/latest/scale-to-width-down/400?cb=20131213124119"
-                                     alt="" class="comment-avt"/>
-                            </a>
-                        </div>
-                        <div class="col-sm-11">
-                            <p>
-                                <a href="#/" class="fa-fw">
-                                    <b>Username2</b>
-                                </a>
-                                Lorem ipsum dolor sit amet, consectetur
-                                <br>
-                                <small>in a minus ago</small>
-                            </p>
-
-                        </div>
-                    </li>
-
-
                 </ul>
             </div>
         </div>
