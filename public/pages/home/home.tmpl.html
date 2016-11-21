@@ -25,7 +25,7 @@
                         <div class="post-header">
                             <img ng-src="{{ post.user.avatar }}" alt="user avt" class="post-avt"/>
                             <span>
-                        <a href="#">{{ post.user.name }}</a> in <small>{{ fromNow(post.created_at) }}</small><span
+                        <a href="#">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
                                     class="pull-right"><i
                                     class="fa fa-ellipsis-v"></i></span>
                     </span>
@@ -39,7 +39,8 @@
                             <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">{{ post.location.name }}</a>
                             </p>
                             <div class="post-images">
-                                <img ng-src="{{ image.src }}" alt="{{ image.title }}" ng-repeat="image in post.images">
+                                <img ng-src="{{ image.src }}" alt="{{ image.title }}" ng-repeat="image in post.images"
+                                     ng-click="showPostContent($event, post)">
                             </div>
                         </div>
                         <div class="post-footer">
