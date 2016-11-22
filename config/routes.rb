@@ -15,8 +15,9 @@ Rails.application.routes.draw do
       get 'users/:id' => 'users#show'
       patch 'users/:id' => 'users#update'
       get 'locations/:id' => 'locations#show'
-      get 'locations/search' => 'locations#search'
-
+      get 'locations/search' => 'locations#search'      # param keyword= adasdasd
+      post 'rates/' => 'rates#create' #param rate[user_id]= 1 rate[post_id]= 1 rate[point] =1
+      delete 'rates/' => 'rates#destroy' #param rate[user_id]= 1 rate[post_id]= 1
     end
   end
 
