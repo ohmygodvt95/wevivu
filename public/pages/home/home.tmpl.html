@@ -36,10 +36,10 @@
                                 <br/><a href="#/" ng-click="showPostContent($event, post)"> Read more</a>
                             </div>
                             <br>
-                            <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">{{ post.location.name }}</a>
+                            <p><i class="fa fa-map-marker fa-2x fa-fw"></i><small><a href="">{{ post.location.name }}</a></small>
                             </p>
                             <div class="post-images">
-                                <img ng-src="{{ image.src }}" alt="{{ image.title }}" ng-repeat="image in post.images"
+                                <img ng-src="{{ image.src.thumb.url }}" alt="{{ image.title }}" ng-repeat="image in post.images"
                                      ng-click="showPostContent($event, post)">
                             </div>
                         </div>
