@@ -50,9 +50,13 @@ ActiveRecord::Schema.define(version: 20161116070513) do
     t.integer  "post_id"
     t.string   "title"
     t.string   "src"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "active",     default: 0
+    t.integer  "type",       default: 0
   end
+
+  add_index "images", ["title"], name: "images_title_pk", unique: true, using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"

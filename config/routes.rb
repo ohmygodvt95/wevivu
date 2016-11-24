@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       # image
       scope :images do
         get '/:id' => 'images#show'
+        post '/' => 'images#create'
         patch '/:id' => 'images#update'
         put '/:id' => 'images#update'
         delete '/:id' => 'images#destroy'

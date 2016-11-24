@@ -1,5 +1,5 @@
 <md-dialog aria-label="Form" style="width: 100%;  height: 100%;" class="post-dialog">
-    <md-dialog-content layout="row" style="min-width: 1000px; min-height: 500px;">
+    <md-dialog-content layout="row" style="min-width: 1000px; height: 100%;">
         <div class="container-fluid img-box" flex="60" layout="column" layout-align="center">
             <div class="img-btn img-prev" ng-click="prev(data.post.images)"><i class="fa fa-fw fa-5x fa-angle-left"></i>
             </div>
@@ -25,7 +25,7 @@
             <div>
                 <p>{{ data.post.body }}</p>
                 <hr>
-                <p><i class="fa fa-map-marker fa-fw"></i> Location: <a href="">{{ data.post.location.name }}</a></p>
+                <p><i class="fa fa-map-marker fa-fw fa-2x"></i><a href="">{{ data.post.location.name }}</a></p>
             </div>
             <hr>
             <div>
