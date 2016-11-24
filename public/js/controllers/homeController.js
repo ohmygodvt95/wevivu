@@ -1,4 +1,6 @@
-app.controller('HomeController', function ($scope, $http, $mdDialog) {
+app.controller('HomeController', function ($scope, $http, $mdDialog, Data) {
+
+    $scope.transfer = null;
 
     $scope.currentData = {
         mode: 'new',
@@ -6,6 +8,16 @@ app.controller('HomeController', function ($scope, $http, $mdDialog) {
         total: 0,
         data: []
     };
+
+    $scope.$watch(function () {
+            return Data.getData();
+        }, function (newValue, oldValue) {
+            // console.log($scope.transfer, Data.getData());
+            if ($scope.transfer != Data.getData()) {
+                $scope.transfer = Data.getData();
+                $scope.currentData.data.unshift($scope.transfer);
+            }
+    });
 
     $scope.fromNow = function (time) {
         return moment(time).fromNow();
@@ -40,7 +52,7 @@ app.controller('HomeController', function ($scope, $http, $mdDialog) {
             templateUrl: '/pages/post_detail.tmpl.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: false
+            clickOutsideToClose: true
         }).then(function () {
 
         });
@@ -72,7 +84,7 @@ app.controller('HomeController', function ($scope, $http, $mdDialog) {
 
                     $scope.images = function (imagesArr) {
                         //console.log(imagesArr);
-                        return imagesArr[$scope.imgIndex].src;
+                        return imagesArr[$scope.imgIndex].src.url;
                     };
                 }
             });
