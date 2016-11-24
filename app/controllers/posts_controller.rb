@@ -16,7 +16,35 @@ class PostsController < ApplicationController
       rate_tb = 0
     end
     @comment = @post.comments.last(10)
-    render json: {status: "success", data: {post: @post.as_json(include: [:images, :location, {user: {only: [:name, :avatar]}}]), rate: arr, rate_tb: rate_tb, comments: @comment.as_json(include: {user: {only: [:id, :name, :avatar]}})}}, status: :ok
+    render json: {
+        status: "success",
+        data: {
+            post: @post.as_json(
+                include: [
+                    {
+                        images: {
+                            only: [:id, :src]
+                        }
+                    },
+                    :location,
+                    {
+                        user: {
+                            only: [:name, :avatar]
+                        }
+                    }]),
+            rate: arr,
+            rate_tb: rate_tb,
+            comments: @comment.as_json(
+                include:
+                    {
+                        user:
+                            {
+                                only: [:id, :name, :avatar]
+                            }
+                    }
+            )
+        }
+    }, status: :ok
 
   end
 
@@ -28,18 +56,35 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
 
-    @post = Post.new(post_params)
-
-    if @post.save
-      params[:images].each do |i|
-        Image.new(user_id: @post.user_id, post_id: @post.id, src: i).save
+    post = Post.new(post_params)
+    post.location = Location.create(name: params[:post][:location][:name], lat: params[:post][:location][:lat], long: params[:post][:location][:long])
+    if post.save
+      params[:post][:images].each do |i|
+        img = Image.find(i[:id])
+        img.update(active: 1, post_id: post.id)
       end
-      @image = @post.images
-      @location = Location.find(params[:id_location])
-      render json: {status: "success", data: @post, location: @location, images: @image}, status: :ok
+
+      render json: {
+          status: "success",
+          data: post.as_json(
+              include: [
+                  {
+                      user:
+                       {
+                           only: [:id, :name, :avatar]
+                       }
+                  },
+                  :location,
+                  {
+                      images: {
+                          only: [:id, :src]
+                      }
+                  },
+                  :rates
+              ])}, status: :ok
 
     else
-      render json: @post.errors, status: 404
+      render json: post.errors, status: 404
     end
   end
 

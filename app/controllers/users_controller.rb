@@ -19,8 +19,8 @@ class UsersController < ApplicationController
   def create
 
     @user = User.new(user_params)
-    @user.avatar = "https://viblo.asia/img/categories/320/ruby.png"
-    @user.cover = "https://viblo.asia/img/categories/320/ruby.png"
+    @user.avatar = "/storage/default/avatar.png"
+    @user.cover = "/storage/default/cover.png"
 
 
       if @user.save

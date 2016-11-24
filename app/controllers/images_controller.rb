@@ -2,6 +2,16 @@ class ImagesController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
+  def create
+
+    img = Image.new user_id: current_user.id, src: params[:file]
+
+    if img.save
+      render json: { status: 'success', data: img}, status: 200
+    else
+      render json: { status: 'failure', data: nil}, status: :bad_gateway
+    end
+  end
 
   def show
     @image = Image.find(params[:id])

@@ -8,7 +8,7 @@ class HomeController < ApplicationController
       when 'rates'
       when 'bookmarks'
       else
-        posts = Post.page(params[:page]).per(20).order(id: :desc)
+        posts = Post.page(params[:page]).per(10).order(id: :desc)
         render json: {
             status: 'success',
             data: posts.as_json(
@@ -17,7 +17,11 @@ class HomeController < ApplicationController
                          {only: [:id, :name, :avatar]}
                     },
                     :location,
-                    :images,
+                    {
+                        images: {
+                            only: [:id, :src]
+                        }
+                    },
                     :rates
                 ]),
             total: posts.count,
