@@ -29,4 +29,5 @@
 //= require masonry/masonry
 //= require imagesloaded/imagesloaded
 //= require angular-masonry/angular-masonry
+//= require ng-file-upload/ng-file-upload-all.min
 //= require_self
