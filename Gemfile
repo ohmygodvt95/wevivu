@@ -30,7 +30,9 @@ gem 'will_paginate'
 gem 'kaminari'
 # Use Unicorn as the app server
 gem 'unicorn'
-
+gem 'angularjs-file-upload-rails', '~> 2.2.0'
+gem 'carrierwave'
+gem 'mini_magick', '3.8.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
