@@ -28,7 +28,7 @@
           <li><md-button class="md-raised md-warn" aria-label="Register"  ng-click="showLoginAndSignupForm($event)">SignUp</md-button></li>
         <% else %>
             <li>
-              <a href="#"><img height="28px" width="28px" src="<%= current_user.avatar %>" class="avt"/><%= current_user.name %>
+              <a href="#/wall"><img height="28px" width="28px" src="<%= current_user.avatar %>" class="avt"/><%= current_user.name %>
               </a></li>
         <% end %>
       </ul>
