@@ -15,6 +15,7 @@
 //= require bootstrap/dist/js/bootstrap.min
 //= require moment/min/moment.min
 //= require angular/angular.min
+//= require angular-sanitize/angular-sanitize.min
 //= require angular-aria/angular-aria.min
 //= require angular-animate/angular-animate.min
 //= require angular-material/angular-material.min
@@ -30,4 +31,6 @@
 //= require imagesloaded/imagesloaded
 //= require angular-masonry/angular-masonry
 //= require ng-file-upload/ng-file-upload-all.min
+//= require ngInfiniteScroll/build/ng-infinite-scroll.min
+//= require ngToast/dist/ngToast.min
 //= require_self
