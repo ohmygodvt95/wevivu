@@ -6,6 +6,7 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :category_id
       t.string :title
       t.text :body
+      t.json :data, null: false, default: {comments: 0, rates: [0, 0, 0, 0, 0]}
       t.timestamps null: false
     end
   end
