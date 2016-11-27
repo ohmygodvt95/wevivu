@@ -12,8 +12,11 @@
  *= require bootstrap/dist/css/bootstrap.min
  *= require angular-material/angular-material.min
  *= require font-awesome/css/font-awesome.min
+ *= require ngToast/dist/ngToast.min.css
+ *= require ngToast/dist/ngToast-animations.min
  *= require_self
  *= require home
+ *= require wall
  */
 * {
     font-family: 'Roboto', sans-serif;
