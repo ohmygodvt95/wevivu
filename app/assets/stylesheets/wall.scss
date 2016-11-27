@@ -1,0 +1,92 @@
+/**
+ *
+ * ABOUT
+ *
+ */
+.sticky-wrapper{
+  width: 25%;
+}
+
+.fixed{
+  width: 100%;
+}
+.scrollit {
+  float: right;
+}
+.wall{
+  margin-top: 80px;
+}
+section h2,
+#about h3 {
+  text-shadow: 0 0 1px #000;
+}
+
+section h2.heading {
+  font-family: 'Dosis', sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  margin-top: 100px;
+  text-transform: uppercase;
+}
+
+section h3.sub-heading {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+}
+
+#about {
+  background-color: #E6E9EE;
+}
+
+#about hr {
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+}
+
+#about .header {
+  padding-top: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-attachment: fixed;
+}
+
+#about .header h2 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  padding-bottom: 150px;
+}
+
+#about .avatar {
+  width: 200px;
+  height: 200px;
+  background-color: #E6E9EE;
+  padding: 10px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-top: -100px;
+}
+
+#about .avatar .img {
+  transition: 0.15s;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+#about blockquote {
+  border-left: none;
+  margin-bottom: 100px;
+}
+
+#about .hobby > div {
+  min-height: 500px;
+  position: relative;
+}
+
