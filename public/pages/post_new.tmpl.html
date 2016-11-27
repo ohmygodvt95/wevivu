@@ -15,21 +15,24 @@
             <hr>
             <h5>Images <i class="fa fa-spinner fa-pulse fa-fw" ng-show="doing"></i></h5>
             <div class="col-md-3" ng-repeat="image in post.images">
-                <img ng-src="{{ image.src.thumb.url }}" alt="img" class="img-thumb img-responsive">
+                <i class="fa fa-close delete-img" ng-click="deleteImage(image)"></i>
+                <img ng-src="{{ image.src.thumb256.url }}" alt="img" class="img-thumb img-responsive">
             </div>
             <div class="col-md-3">
                 <div ngf-select ngf-drop ng-model="files" ngf-model-invalid="invalidFiles"
-                     style="margin-top: 10px; height: 100px; width: 100px; border: 1px groove gray;"
+                     style="color:#fff;background-color: rgba(0,0,0,0.6);line-height: 70px; box-shadow: 0px 0px 1px black;border-radius: 1px;margin-top: 5px; height: 70px; width: 100%; text-align: center; vertical-align: middle"
                      ngf-multiple="false"
-                     class="drop-box">Select Image
-                    <span ng-show="dropAvailable"> or Drop Image</span>
+                     class="drop-box"><i class="fa fa-fw fa-plus"></i>
                 </div>
             </div>
 
             <div class="col-sm-12">
+                <hr>
+
                 <md-button class="md-raised md-primary" ng-click="sendPost()">Send <i class="fa fa-spinner fa-pulse fa-fw" ng-show="sending"></i></md-button>
             </div>
         </div>
+
     </md-dialog-content>
 </md-dialog>
 

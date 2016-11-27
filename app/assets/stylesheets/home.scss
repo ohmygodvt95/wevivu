@@ -1,6 +1,12 @@
 small {
   color: #A29BB5;
 }
+.ng-toast{
+  z-index: 9999;
+  margin-top: 90px;
+  right: 80px;
+}
+
 a:hover{
   text-decoration: none;
 }
@@ -14,9 +20,16 @@ a:hover{
   z-index: 9000!important;
 }
 
-
-
-
+.word-wrap{
+  word-wrap: break-word;
+}
+.text-red{
+  color: red;
+  font-weight: bolder;
+}
+.feeling > span{
+  margin-right: 10px;
+}
 .hero{
   color: #ffffff;
   h1{
@@ -58,16 +71,51 @@ a:hover{
     background-color: #ffffff;
     border-radius: 3px;
     box-shadow: 0px 0px 1px #fff;
+
     .post-avt{
       height: 32px;
       width: 32px;
       margin-right: 10px;
     }
-    .post-images img{
-      height: 64px;
-      width: 64px;
-      border-radius: 2px;
-      margin: 5px;
+    .post-images {
+      img{
+        box-sizing: border-box;
+        -webkit-transition:  0.5s;
+        -moz-transition:  0.5s;
+        -ms-transition:  0.5s;
+        -o-transition:  0.5s;
+        transition:  0.5s;
+        width: 100%;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 1);
+      }
+      img:hover{
+        transform: scale(1.5);
+      }
+      .img-none{
+        display: none;
+      }
+      .img-100{
+        overflow: hidden;
+        width: 100%;
+      }
+      .img-50{
+        margin-top: 5px;
+        overflow: hidden;
+        position: relative;
+        padding: 0 1px 0 1px;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 49.6%;
+      }
+      .img-33{
+        margin-top: 5px;
+        overflow: hidden;
+        position: relative;
+        padding: 0 1px 0 1px;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 32.8%;
+      }
     }
   }
 }
@@ -118,6 +166,7 @@ a:hover{
         border-radius: 1px;
         width: 100%;
         padding: 2px;
+        border-bottom: 1px solid #CCCCCC;
       }
       .row{
         margin-right: 0px;
@@ -134,19 +183,41 @@ a:hover{
 
 }
 .post-dialog{
+  .col-md-3{
+    padding: 5px;
+  }
   .img-thumb{
-    height: 100px;
-    width: 100px;
-    border-radius: 3px;
+    width: 100%;
+    border-radius: 1px;
     box-shadow: 0 0 2px black;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
+}
+
+.col-sm-11:hover{
+  .delete-comment{
+    display: block;
+  }
+}
+.delete-comment{
+  display: none;
+  color: #C2C5CD;
 }
 .new-post{
   position: fixed;
   bottom: 100px;
   right: 20px;
+
+}
+.col-md-3:hover .delete-img{
+  display: block;
+}
+.delete-img{
+  display: none;
+  position: absolute;
+  right: 0;
+  color: red;
 }
 .controls {
   margin: 10px;

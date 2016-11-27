@@ -4,22 +4,12 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def show
-    @post = Post.find(params[:id])
-    arr = [0, 0, 0, 0, 0]
-    for i in 0..4
-      arr[i] = @post.rates.where(:point => (i+1)).count
-    end
-    if (arr[0] + arr[1] + arr[2] + arr[3] + arr[4]) != 0
-      rate_tb = (arr[0] * 1 + arr[1] * 2 + arr[2] * 3 + arr[3] * 4 + arr[4] * 5) /
-          (arr[0] + arr[1] + arr[2] + arr[3] + arr[4])
-    else
-      rate_tb = 0
-    end
-    @comment = @post.comments.last(10)
+    post = Post.find(params[:id])
+    rate = Rate.find_by user_id: current_user.id, post_id: post.id
     render json: {
         status: "success",
         data: {
-            post: @post.as_json(
+            post: post.as_json(
                 include: [
                     {
                         images: {
@@ -31,18 +21,9 @@ class PostsController < ApplicationController
                         user: {
                             only: [:name, :avatar]
                         }
-                    }]),
-            rate: arr,
-            rate_tb: rate_tb,
-            comments: @comment.as_json(
-                include:
-                    {
-                        user:
-                            {
-                                only: [:id, :name, :avatar]
-                            }
                     }
-            )
+                ]),
+            rate: rate
         }
     }, status: :ok
 
@@ -106,11 +87,10 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-
-    @post = Post.find(params[:id])
-
-    @post.destroy
-    render json: {status: "success"}, status: :ok
+    post = Post.find(params[:id])
+    if post.destroy
+      render json: {status: "success", data: {id: params[:id]}}, status: :ok
+    end
   end
 
   private

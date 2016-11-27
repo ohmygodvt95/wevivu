@@ -1,32 +1,148 @@
 class HomeController < ApplicationController
+  MAX = 99999999999999
+
   def index
   end
 
   #home/:type/:pages
   def get_posts
     case params[:type]
+      when 'me'
+        realtime_page_next_by_me Integer(params[:after]), Integer(params[:limit])
       when 'rates'
       when 'bookmarks'
+        realtime_page_next_by_bookmark Integer(params[:after]), Integer(params[:limit]), params[:query]
       else
-        posts = Post.page(params[:page]).per(10).order(id: :desc)
-        render json: {
-            status: 'success',
-            data: posts.as_json(
-                include: [
-                    {user:
-                         {only: [:id, :name, :avatar]}
-                    },
-                    :location,
-                    {
-                        images: {
-                            only: [:id, :src]
-                        }
-                    },
-                    :rates
-                ]),
-            total: posts.count,
-            page: Integer(params[:page])
-        }, status: :ok
+        realtime_page_next_by_time Integer(params[:after]), Integer(params[:limit]), params[:query]
     end
+  end
+
+  private
+
+  def realtime_page_next_by_bookmark(after, limit, query)
+    after = MAX if after <= 0
+
+    if query.length == 0
+      bookmarks = Bookmark.where('user_id = ? AND id < ?', current_user.id, after).order(id: :desc).limit limit
+      posts = []
+      bookmarks.each do |item|
+        posts.append item.post unless item.post.nil?
+      end
+    else
+      locations = Location.where("name like '%#{query}%'").page 1
+      posts = []
+      locations.each do |item|
+        posts.append item.post unless item.post.nil?
+      end
+    end
+
+    render json: {
+        status: 'success',
+        data: posts.as_json(
+            include: [
+                {
+                    user:
+                        {
+                            only: [:id, :name, :avatar]
+                        }
+                },
+                :location,
+                {
+                    images: {
+                        only: [:id, :src]
+                    }
+                },
+                :rates]),
+        total: posts.count,
+        limit: limit,
+        after: posts.count == 0 ? after : bookmarks.last.id,
+        before: after == MAX ? (posts.count == 0 ? 0 : bookmarks.last.id) : 0
+    }, status: :ok
+  end
+
+  def realtime_page_next_by_me(after, limit)
+    after = MAX if after <= 0
+    posts = Post.where("id < ? AND user_id = ?", after, current_user.id).order(id: :desc).limit limit
+
+    render json: {
+        status: 'success',
+        data: posts.as_json(
+            include: [
+                {
+                    user:
+                        {
+                            only: [:id, :name, :avatar]
+                        }
+                },
+                :location,
+                {
+                    images: {
+                        only: [:id, :src]
+                    }
+                },
+                :rates]),
+        total: posts.count,
+        limit: limit,
+        after: posts.count == 0 ? after : posts.last.id,
+        before: after == MAX ? (posts.count == 0 ? 0 : posts.last.id) : 0
+    }, status: :ok
+  end
+
+  def realtime_page_next_by_time(after, limit, query)
+    after = MAX if after <= 0
+    if query.length == 0
+      posts = Post.where("id < ?", after).order(id: :desc).limit limit
+    else
+      locations = Location.where("name like '%#{query}%' AND id < after").order(id: :desc).limit limit
+      posts = []
+      locations.each do |item|
+        posts.append item.post unless item.post.nil?
+      end
+      render json: {
+          status: 'success',
+          data: posts.as_json(
+              include: [
+                  {
+                      user:
+                          {
+                              only: [:id, :name, :avatar]
+                          }
+                  },
+                  :location,
+                  {
+                      images: {
+                          only: [:id, :src]
+                      }
+                  },
+                  :rates]),
+          total: posts.count,
+          limit: limit,
+          after: posts.count == 0 ? after : locations.last.id,
+          before: after == MAX ? (posts.count == 0 ? 0 : locations.last.id) : 0
+      }, status: :ok
+    end
+
+    render json: {
+        status: 'success',
+        data: posts.as_json(
+            include: [
+                {
+                    user:
+                        {
+                            only: [:id, :name, :avatar]
+                        }
+                },
+                :location,
+                {
+                    images: {
+                        only: [:id, :src]
+                    }
+                },
+                :rates]),
+        total: posts.count,
+        limit: limit,
+        after: posts.count == 0 ? after : posts.last.id,
+        before: after == MAX ? (posts.count == 0 ? 0 : posts.last.id) : 0
+    }, status: :ok
   end
 end

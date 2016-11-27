@@ -15,7 +15,6 @@ app.controller('NewPostController', function ($scope, $mdDialog, Data) {
     $scope.$watch('transfer', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             Data.setData($scope.transfer);
-            console.log(1);
         }
     });
 
@@ -34,7 +33,17 @@ app.controller('NewPostController', function ($scope, $mdDialog, Data) {
             }
         };
         //Upload Images
+        $scope.deleteImage = function (img) {
+              $scope.post.images.forEach(function (v,i) {
+                  if(v.id == img.id){
+                      $scope.post.images.splice(i, 1);
+                      return null;
+                  }
+              });
+        };
+
         Upload.setDefaults({ngfKeep: true, ngfPattern:'image/*'});
+
         $scope.$watch('files', function (files) {
             if (files != null) {
                 // console.log(files);

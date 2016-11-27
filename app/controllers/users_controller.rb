@@ -65,8 +65,6 @@ class UsersController < ApplicationController
         params.require(:user).permit(  :name,  :date_of_birth, :sex, :avatar, :cover)
       end
 
-
-
 end
 
 

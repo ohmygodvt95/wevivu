@@ -23,31 +23,35 @@
             </div>
             <hr>
             <div>
-                <p>{{ data.post.body }}</p>
+                <p class="word-wrap">{{ data.post.body }}</p>
                 <hr>
-                <p><i class="fa fa-map-marker fa-fw fa-2x"></i><a href="">{{ data.post.location.name }}</a></p>
+                <p><i class="fa fa-map-marker fa-fw fa-2x"></i><a target="_blank" title="See on google maps" href="https://www.google.com/maps/@{{data.post.location.lat}},{{data.post.location.long}},16z">{{ data.post.location.name }}</a></p>
             </div>
             <hr>
             <div>
-                <span class="fa-fw"><i class="fa fa-fw fa-thumbs-o-up"></i><small>10</small></span>
-                <span class="fa-fw"><i class="fa fa-fw fa-thumbs-o-up"></i><small>110</small></span>
-                <span class="fa-fw"><i class="fa fa-fw fa-thumbs-o-up"></i><small>12</small></span>
-                <span class="fa-fw"><i class="fa fa-fw fa-thumbs-o-up"></i><small>14</small></span>
-                <span class="fa-fw"><i class="fa fa-fw fa-thumbs-o-up"></i><small>16</small></span>
-                <span class="pull-right"><i class="fa fa-bookmark-o"></i></span>
+                <span><i class="fa fa-fw fa-comments"></i>{{ data.post.data.comments}}</span>
+                <span class="pull-right feeling">
+                    <span title="Like" ng-click="rate(data, 4)"><i class="fa fa-fw fa-thumbs-o-up {{ data.rate.point == 4? 'text-red' : '' }}"></i>{{ data.post.data.rates[4] }}</span>
+                    <span title="Love" ng-click="rate(data, 3)"><i class="fa fa-fw fa-heart-o {{ data.rate.point == 3? 'text-red' : '' }}"></i>{{ data.post.data.rates[3] }}</span>
+                    <span title="Okay!" ng-click="rate(data, 2)"><i class="fa fa-fw fa-smile-o {{ data.rate.point == 2? 'text-red' : '' }}"></i>{{ data.post.data.rates[2] }}</span>
+                    <span title="Uhm" ng-click="rate(data, 1)"><i class="fa fa-fw fa-hand-peace-o {{ data.rate.point == 1? 'text-red' : '' }}"></i>{{ data.post.data.rates[1] }}</span>
+                    <span title="Don't like" ng-click="rate(data, 0)"><i class="fa fa-fw fa-heartbeat {{ data.rate.point == 0? 'text-red' : '' }}"></i>{{ data.post.data.rates[0] }}</span>
+                </span>
             </div>
             <hr>
             <div>
+                <div class="text-center text-primary" ng-show="data.post.data.comments > dataComments.total" ng-click="getComments(dataComments)"><span>show {{ dataComments.total }}/{{ data.post.data.comments }}! click to load more!</span></div>
                 <ul>
-                    <li class="row" ng-repeat="comment in data.comments">
-                        <div class="col-sm-1">
+                    <li class="col-sm-12" style="padding: 15px 5px 0px 5px;" ng-repeat="comment in dataComments.data | orderBy: 'id'">
+                        <div class="col-sm-1" style="padding: 0px 0px 0px 5px;">
                             <a href="#/">
                                 <img ng-src="{{ comment.user.avatar}}"
                                      alt="avt" class="comment-avt"/>
                             </a>
                         </div>
                         <div class="col-sm-11">
-                            <p>
+                            <span class="pull-right delete-comment" ng-if="isOwn(comment.user.id)" ng-click="deleteComment(comment)"><i class="fa fa-close"></i></span>
+                            <p class="word-wrap">
                                 <a href="#/" class="fa-fw">
                                     <b>{{ comment.user.name}}</b>
                                 </a>
@@ -58,12 +62,16 @@
 
                         </div>
                     </li>
-                    <li class="row">
-                        <div class="col-sm-12">
-                            <input type="text" class="input" placeholder="Input something...">
+                    <li class="col-sm-12" style="padding: 0px 0px 0 5px; margin-bottom: 30px">
+                        <div class="col-sm-1 text-center" style="padding: 0 0 0 5px; line-height: 45px">
+                           <i class="fa fa-commenting-o"></i>
+                        </div>
+                        <div class="col-sm-10" style="padding-left: 0">
+                            <input type="text" ng-model="comment" class="input" placeholder="Enter to send comment." input-comment="createComment(comment)">
                         </div>
                     </li>
                 </ul>
+                <br>
             </div>
         </div>
     </md-dialog-content>

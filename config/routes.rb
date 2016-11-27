@@ -14,10 +14,13 @@ Rails.application.routes.draw do
   scope :api do
 
     scope :v1 do
-
+      # bookmarks
+      scope :bookmarks do
+        post '/' => 'bookmarks#create'
+      end
       # comment
       scope :comments do
-        get '/:post_id' => 'comments#show'
+        get '/' => 'comments#show'
         post '/' => 'comments#create'
         patch '/:id' => 'comments#update'
         put '/:id' => 'comments#update'
@@ -58,6 +61,12 @@ Rails.application.routes.draw do
 
       scope :home do
         get '/:type' => 'home#get_posts'
+      end
+
+      scope :rates do
+        post '/' => 'rates#create'
+        delete '/:id' => 'rates#destroy'
+        patch '/' => 'rates#update'
       end
     end
   end
