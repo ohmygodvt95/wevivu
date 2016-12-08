@@ -19,9 +19,6 @@ class UsersController < ApplicationController
   def create
 
     @user = User.new(user_params)
-    @user.avatar = "/storage/default/avatar.png"
-    @user.cover = "/storage/default/cover.png"
-
 
       if @user.save
         #format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -42,8 +39,6 @@ class UsersController < ApplicationController
     @user.name = @new_update.name
     @user.date_of_birth = @new_update.date_of_birth
     @user.sex = @new_update.sex
-    @user.avatar = @new_update.avatar
-    @user.cover = @new_update.cover
 
     if @user.save
       #format.html { redirect_to @user, notice: 'User was successfully created.' }
