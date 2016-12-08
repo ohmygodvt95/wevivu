@@ -4,12 +4,35 @@
             <section id="about">
                 <toast></toast>
                 <div class="about">
-                    <div class="header" style="background-image: url('{{ user.cover }}')">
+
+
+
+                    <div class="header" ng-style="{'background-image': 'url(\'' + user.cover.thumb1140.url + '\')'}">
+                        <md-button ngf-select
+                                   ngf-pattern="'image/*'"
+                                   ngf-accept="'image/*'"
+                                   ngf-multiple="false"
+                                   ng-model="cover"
+                                   class="md-fab md-primary edit-cover"
+                                   aria-label="Eat cake"
+                                   style="position: absolute; top: 0">
+                            <md-icon md-font-icon="fa fa-image fa-2x"></md-icon>
+                        </md-button>
                         <h2 class="text-center">{{ user.name }}</h2>
                     </div>
                     <div class="container">
                         <div class="avatar center-block">
-                            <div class="img" style="background-image: url('{{ user.avatar }}')">
+                            <div class="img" ng-style="{'background-image': 'url(\'' + user.avatar.thumb512.url + '\')'}">
+                                <md-button ngf-select
+                                           ngf-pattern="'image/*'"
+                                           ngf-accept="'image/*'"
+                                           ngf-multiple="false"
+                                           ng-model="avatar"
+                                           class="md-fab md-primary md-mini edit-avatar"
+                                           aria-label="Eat cake 2"
+                                           style="margin: 70px 0 0 70px;">
+                                    <md-icon md-font-icon="fa fa-image"></md-icon>
+                                </md-button>
                             </div>
                         </div>
                         <blockquote class="text-center">
@@ -31,7 +54,7 @@
                             <div class="col-sm-6 masonry-brick" ng-repeat="post in currentData.data">
                                 <div class="post">
                                     <div class="post-header">
-                                        <img ng-src="{{ post.user.avatar }}" alt="user avt" class="post-avt"/>
+                                        <img ng-src="{{ post.user.avatar.thumb128.url }}" alt="user avt" class="post-avt"/>
                                         <span>
                         <a href="#">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
                                                 class="pull-right">
@@ -91,148 +114,7 @@
                                         <p><i class="fa fa-map-marker fa-fw"></i>
                                             <small><a title="See on google maps" target="_blank" href="https://www.google.com/maps/@{{post.location.lat}},{{post.location.long}},16z">{{ post.location.name }}</a></small>
                                         </p>
-                                        <div class="post-images">
-
-                                            <div ng-if="post.images.length == 1" class="img-100">
-                                                <img ng-src="{{ post.images[0].src.thumb512.url }}"
-                                                     alt="{{ post.images[0].title }}"
-                                                     ng-click="showPostContent($event, post)"
-                                                     class="img-responsive center-block">
-                                            </div>
-
-                                            <div ng-if="post.images.length == 2" class="img-100">
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[0].src.thumb256.url }}"
-                                                         alt="{{ post.images[0].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[1].src.thumb256.url }}"
-                                                         alt="{{ post.images[1].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                            </div>
-
-                                            <div ng-if="post.images.length == 3" style="width: 100%">
-                                                <div class="img-100">
-                                                    <img ng-src="{{ post.images[0].src.thumb512.url }}"
-                                                         alt="{{ post.images[0].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[1].src.thumb512.url }}"
-                                                         alt="{{ post.images[1].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-50">
-                                                    <!--<i class="fa fa-plus fa-3x" ng-if="$index == 3" style="position: absolute; top: 40%; left: 42%; z-index: 1000"></i>-->
-                                                    <img ng-src="{{ post.images[2].src.thumb512.url }}"
-                                                         alt="{{ post.images[2].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                            </div>
-                                            <div ng-if="post.images.length == 4" class="img-100">
-                                                <div class="img-100">
-                                                    <img ng-src="{{ post.images[0].src.thumb256.url }}"
-                                                         alt="{{ post.images[0].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[1].src.thumb256.url }}"
-                                                         alt="{{ post.images[1].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[2].src.thumb256.url }}"
-                                                         alt="{{ post.images[2].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[3].src.thumb256.url }}"
-                                                         alt="{{ post.images[3].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                            </div>
-                                            <div ng-if="post.images.length == 5" class="img-100">
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[0].src.thumb256.url }}"
-                                                         alt="{{ post.images[0].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[1].src.thumb256.url }}"
-                                                         alt="{{ post.images[1].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[2].src.thumb256.url }}"
-                                                         alt="{{ post.images[2].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[3].src.thumb256.url }}"
-                                                         alt="{{ post.images[3].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[4].src.thumb256.url }}"
-                                                         alt="{{ post.images[4].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                            </div>
-                                            <div ng-if="post.images.length > 5" class="img-100">
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[0].src.thumb256.url }}"
-                                                         alt="{{ post.images[0].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-50">
-                                                    <img ng-src="{{ post.images[1].src.thumb256.url }}"
-                                                         alt="{{ post.images[1].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[2].src.thumb256.url }}"
-                                                         alt="{{ post.images[2].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33">
-                                                    <img ng-src="{{ post.images[3].src.thumb256.url }}"
-                                                         alt="{{ post.images[3].title }}"
-                                                         ng-click="showPostContent($event, post)"
-                                                         class="img-responsive center-block">
-                                                </div>
-                                                <div class="img-33 ">
-                                                    <div ng-click="showPostContent($event, post)" class="text-center" style="line-height: 80px; color: #fff;z-index: 1000;position: absolute; left: 0; top:0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.5) ">
-                                                        <b>{{ post.images.length - 5 }} +</b>
-                                                    </div>
-
-                                                    <img ng-src="{{ post.images[4].src.thumb256.url }}"
-                                                         alt="{{ post.images[4].title }}"
-
-                                                         class="img-responsive center-block red"
-                                                         style="-webkit-filter: grayscale(100%); filter: grayscale(100%);">
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        <div ng-include="'/pages/images.tmpl.html'"></div>
                                     </div>
                                     <div class="post-footer">
                                         <hr>
