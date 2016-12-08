@@ -68,6 +68,14 @@ Rails.application.routes.draw do
         delete '/:id' => 'rates#destroy'
         patch '/' => 'rates#update'
       end
+
+      scope :cover do
+        post '/' => 'cover#update'
+      end
+
+      scope :avatar do
+        post '/' => 'avatar#update'
+      end
     end
   end
 
