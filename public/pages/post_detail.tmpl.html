@@ -15,7 +15,7 @@
             <p><span ng-click="cancel()" class="pull-right"><i class="fa fa-fw fa-close"></i></span></p>
             <div>
                 <a href="#/">
-                    <img ng-src="{{ data.post.user.avatar}}"
+                    <img ng-src="{{ data.post.user.avatar.thumb128.url}}"
                          alt="avt" class="avt"/>
                     <b>{{ data.post.user.name}}</b>
                 </a>
@@ -45,7 +45,7 @@
                     <li class="col-sm-12" style="padding: 15px 5px 0px 5px;" ng-repeat="comment in dataComments.data | orderBy: 'id'">
                         <div class="col-sm-1" style="padding: 0px 0px 0px 5px;">
                             <a href="#/">
-                                <img ng-src="{{ comment.user.avatar}}"
+                                <img ng-src="{{ comment.user.avatar.thumb128.url }}"
                                      alt="avt" class="comment-avt"/>
                             </a>
                         </div>
