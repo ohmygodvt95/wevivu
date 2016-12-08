@@ -12,6 +12,9 @@ app.config(function ($routeProvider) {
             templateUrl: '/pages/wall/wall.tmpl.html',
             controller: 'WallController'
         })
+        .when("/user/:email", {
+            templateUrl: '/pages/wall/user.tmpl.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
