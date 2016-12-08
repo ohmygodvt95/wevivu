@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :rates
   has_many :follows
   has_many :bookmarks
+  require 'carrierwave/orm/activerecord'
+  mount_uploader :cover, CoverUploader
+  mount_uploader :avatar, AvatarUploader
 
   before_save{ self.email = email.downcase }
 
