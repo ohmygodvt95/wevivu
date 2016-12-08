@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Wevivu</a>
+      <a class="navbar-brand" href="#/">Wevivu</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,7 +28,7 @@
           <li><md-button class="md-raised md-warn" aria-label="Register"  ng-click="showLoginAndSignupForm($event)">SignUp</md-button></li>
         <% else %>
             <li>
-              <a href="#/wall"><img height="28px" width="28px" src="<%= current_user.avatar %>" class="avt"/><%= current_user.name %>
+              <a href="#/wall"><img height="28px" width="28px" src="<%= current_user.avatar.thumb128.url %>" class="avt"/><%= current_user.name %>
               </a></li>
         <% end %>
       </ul>
