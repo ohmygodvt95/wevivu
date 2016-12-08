@@ -1,4 +1,4 @@
-app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToast) {
+app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToast, Upload) {
     $scope.transfer = null;
     $scope.busy = false;
     $scope.currentData = {
@@ -25,6 +25,51 @@ app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToa
         return false;
     }
 
+    $scope.cover = function(file){
+
+    };
+    $scope.avatar = function(file){
+
+    };
+    $scope.$watch('cover', function (files) {
+        // console.log(typeof files);
+        if (typeof files != 'function') {
+            console.log(files);
+            if(files){
+                $scope.doing = true;
+                Upload.upload({
+                    url: app.version + 'cover',
+                    method: 'POST',
+                    data: {file: files}
+                }).then(function (response) {
+                    if(response.data.status == 'success'){
+                        // console.log(response.data);
+                        $scope.user = response.data.data;
+                    }
+                });
+            }
+        }
+    });
+
+    $scope.$watch('avatar', function (file) {
+        console.log(typeof file);
+        if (typeof file != 'function') {
+            console.log(file);
+            if(file){
+                $scope.doing = true;
+                Upload.upload({
+                    url: app.version + 'avatar',
+                    method: 'POST',
+                    data: {file: file}
+                }).then(function (response) {
+                    if(response.data.status == 'success'){
+                        // console.log(response.data);
+                        $scope.user = response.data.data;
+                    }
+                });
+            }
+        }
+    });
 
     $scope.$watch(function () {
         return Data.getData();
