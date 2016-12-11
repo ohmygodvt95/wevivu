@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
       if @user.save
+        UserEmail.send_signup_email(@user).deliver
         #format.html { redirect_to @user, notice: 'User was successfully created.' }
         render json: {status: 'success', data: {email: @user.email}}, status: :ok
       else
@@ -33,19 +34,11 @@ class UsersController < ApplicationController
   # PATCH update a user
 
   def update
-
-    @user = User.find(params[:id])
-    @new_update = User.new(user_update_params)
-    @user.name = @new_update.name
-    @user.date_of_birth = @new_update.date_of_birth
-    @user.sex = @new_update.sex
-
-    if @user.save
-      #format.html { redirect_to @user, notice: 'User was successfully created.' }
-        render json: {status: 'success', data: {email: @user.email}}, status: 200
+    user = User.find(params[:user][:id])
+    if user.update_attributes(name: params[:user][:name], date_of_birth: params[:user][:date_of_birth].first(10), status: params[:user][:status], sex: params[:user][:sex])
+        render json: {status: 'success', data: user}, status: 200
     else
-      #format.html { render :new }
-        render json:{status: 'failure', data: @user.errors}, status: 400
+        render json:{status: 'failure', data: user.errors}, status: 400
     end
   end
 
@@ -57,7 +50,7 @@ class UsersController < ApplicationController
 
   private
       def user_update_params
-        params.require(:user).permit(  :name,  :date_of_birth, :sex, :avatar, :cover)
+        params.require(:user).permit(  :name,  :date_of_birth, :sex)
       end
 
 end
