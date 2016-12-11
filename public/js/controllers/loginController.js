@@ -16,7 +16,7 @@ app.controller('LoginController', function ($scope, $mdDialog) {
         });
     };
 
-    function DialogController($scope, $mdDialog, $http, $window, $interval) {
+    function DialogController($scope, $mdDialog, $http, $window, $timeout) {
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -39,14 +39,16 @@ app.controller('LoginController', function ($scope, $mdDialog) {
         };
 
         $scope.register = function (user) {
+            $scope.registerError = false;
             $http.post(app.version + 'users', user).then(function (response) {
                 if (response.data.status == 'success') {
-                    $window.location.reload();
+                    $scope.registerSuccess = true;
+                    $timeout(function () {
+                        $scope.registerSuccess = false;
+                    }, 5000);
                 }
-                else {
-                    $scope.loginError.show = true;
-                    $scope.loginError.data = response.data.data.error;
-                }
+            }, function () {
+                $scope.registerError= true;
             });
         };
     }
