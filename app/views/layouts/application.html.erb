@@ -31,13 +31,12 @@
 <%= render 'layouts/footer' %>
 
 <% if logged_in? %>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCEZ8DButde0dy2DrGsVVoeOSlT3vA7P0" async defer></script>-->
-    <script src="https://raw.githubusercontent.com/garand/sticky/master/jquery.sticky.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/services/dataTransferFactory.js"></script>
     <script src="/js/controllers/homeController.js"></script>
     <script src="/js/controllers/wallController.js"></script>
     <script src="/js/controllers/newPostController.js"></script>
+    <script src="/js/controllers/profileController.js"></script>
     <script src="/js/directives/inputComment.js"></script>
 <% else %>
     <script src="/js/controllers/loginController.js"></script>
