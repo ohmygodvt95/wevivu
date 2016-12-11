@@ -14,22 +14,22 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <form class="navbar-form navbar-left" role="search">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for...">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Go!</button>
-          </span>
-        </div><!-- /input-group -->
-      </form>
       <ul class="nav navbar-nav navbar-right">
         <% if !logged_in? %>
           <li><md-button class="md-raised md-primary" aria-label="Login" ng-click="showLoginAndSignupForm($event)">Login</md-button></li>
           <li><md-button class="md-raised md-warn" aria-label="Register"  ng-click="showLoginAndSignupForm($event)">SignUp</md-button></li>
         <% else %>
             <li>
-              <a href="#/wall"><img height="28px" width="28px" src="<%= current_user.avatar.thumb128.url %>" class="avt"/><%= current_user.name %>
+              <a href="#/wall/<%= current_user.id %>"><img height="28px" width="28px" src="<%= current_user.avatar.thumb128.url %>" class="avt"/><%= current_user.name %>
               </a></li>
+            <li class="dropdown" >
+              <a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="padding-top: 5px" class="fa fa-cog"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#/wall/<%= current_user.id %>/profile">Profile</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a></li>
+              </ul>
+            </li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
