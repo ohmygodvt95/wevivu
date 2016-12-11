@@ -1,12 +1,10 @@
 <div class="container wall">
+    <toast></toast>
     <div class="row">
         <div class="col-sm-12">
             <section id="about">
                 <toast></toast>
                 <div class="about">
-
-
-
                     <div class="header" ng-style="{'background-image': 'url(\'' + user.cover.thumb1140.url + '\')'}">
                         <md-button ngf-select
                                    ngf-pattern="'image/*'"
@@ -15,7 +13,8 @@
                                    ng-model="cover"
                                    class="md-fab md-primary edit-cover"
                                    aria-label="Eat cake"
-                                   style="position: absolute; top: 0">
+                                   style="position: absolute; top: 0;"
+                                    ng-show="isOwn(user.id)">
                             <md-icon md-font-icon="fa fa-image fa-2x"></md-icon>
                         </md-button>
                         <h2 class="text-center">{{ user.name }}</h2>
@@ -30,42 +29,44 @@
                                            ng-model="avatar"
                                            class="md-fab md-primary md-mini edit-avatar"
                                            aria-label="Eat cake 2"
+                                           ng-show="isOwn(user.id)"
                                            style="margin: 70px 0 0 70px;">
                                     <md-icon md-font-icon="fa fa-image"></md-icon>
                                 </md-button>
                             </div>
                         </div>
                         <blockquote class="text-center">
-                            <p>Hãy sống là chính mình, bình thường nhưng không tầm thường.</p>
+                            <p class="text-center">{{ user.status}}</p>
                             <footer><cite title="Source Title">Status</cite></footer>
                         </blockquote>
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-sm-9 scrollit">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-lg btn-default" ng-click="changeMode('me')"> Mới nhất</button>
-                            <button type="button" class="btn btn-lg btn-default" ng-click="changeMode('bookmarks')"> Đã lưu</button>
+                        <div class="row">
+                            <md-tabs id="tabs" md-dynamic-height md-border-bottom class="md-block">
+                                <md-tab label="LATEST" ng-click="changeMode('me')">
+                                </md-tab>
+                                <md-tab label="bookmarks" ng-click="changeMode('bookmarks')">
+                                </md-tab>
+                            </md-tabs>
                         </div>
-                        <hr>
 
                         <div class="row" masonry infinite-scroll="getPosts(currentData)" infinite-scroll-disabled="busy">
                             <div class="col-sm-6 masonry-brick" ng-repeat="post in currentData.data">
                                 <div class="post">
                                     <div class="post-header">
                                         <img ng-src="{{ post.user.avatar.thumb128.url }}" alt="user avt" class="post-avt"/>
-                                        <span>
-                        <a href="#">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
+                                        <span><a ng-href="#/wall/{{ post.user.id }}">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
                                                 class="pull-right">
-                                 <md-menu md-position-mode="target-right target">
+                                        <md-menu md-position-mode="target-right target">
                                       <md-button aria-label="Open demo menu" class="md-icon-button"
                                                  ng-click="$mdMenu.open($event)">
                                         <md-icon md-menu-origin class="fa fa-chevron-down"></md-icon>
                                       </md-button>
                                       <md-menu-content width="2">
                                         <md-menu-item>
-                                          <md-button>
+                                          <md-button ng-click="createReport(post.id)">
                                               <div layout="row" flex>
                                                 <p flex>Report</p>
                                                 <md-icon md-menu-align-target
@@ -83,7 +84,7 @@
                                           </md-button>
                                         </md-menu-item>
                                           <md-menu-item ng-if="isOwn(post.user_id)">
-                                          <md-button>
+                                          <md-button ng-click="editPost($event, post)">
                                               <div layout="row" flex>
                                                 <p flex>Edit</p>
                                                 <md-icon md-menu-align-target
@@ -103,7 +104,7 @@
 
                                       </md-menu-content>
                                     </md-menu>
-                    </span>
+                                        </span>
                                     </div>
                                     <hr>
                                     <div class="post-body">
@@ -131,8 +132,6 @@
                             </div>
                         </div>
                         <hr>
-                        <img class="img-responsive center-block" src="http://www.whattoexpect.com/groups/images/loading.gif"
-                             alt="loading" ng-show="busy">
                     </div>
                     <div class="fixed" id="sticker" style="width: 100%">
                         <h3 class="text-center">About</h3>
@@ -140,11 +139,11 @@
                         <div class="col-md-4 text-right">Name</div>
                         <div class="col-md-8">{{ user.name}}</div>
                         <div class="col-md-4 text-right">DoB</div>
-                        <div class="col-md-8">{{ user.name}}</div>
-                        <div class="col-md-4 text-right">Home</div>
-                        <div class="col-md-8">{{ user.name}}</div>
+                        <div class="col-md-8">{{ user.date_of_birth}}.</div>
+                        <div class="col-md-4 text-right">Sex</div>
+                        <div class="col-md-8"><i class="fa fa-fw fa-{{ user.sex == 0 ? 'male' : 'female'}}"></i>{{ sex(user.sex)}}</div>
                         <br>
-                        <h3 class="text-center">Followers</h3>
+                        <md-button ng-href="#/wall/{{ user.id }}/profile" ng-if="isOwn(user.id)" class="md-primary" style="margin: 10px auto;">Edit profile</md-button>
                         <hr>
                     </div>
                 </div>
