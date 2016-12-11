@@ -7,13 +7,22 @@ Rails.application.routes.draw do
 
 
   root 'home#index'
-  # post 'api/v1/signup' => 'users#create'
+  get 'logout' => 'session#destroy'
   # get 'api/v1/users/:id' => 'users#show'
 
 
   scope :api do
 
     scope :v1 do
+      # report
+      scope :report do
+        post '/' => 'report#create'
+      end
+
+      # password
+      scope :password do
+        patch '/:id' => 'password#update'
+      end
       # bookmarks
       scope :bookmarks do
         post '/' => 'bookmarks#create'
@@ -31,7 +40,6 @@ Rails.application.routes.draw do
         get '/:id' => 'posts#show'
         post '/' => 'posts#create'
         patch '/:id' => 'posts#update'
-        put '/:id' => 'posts#update'
         delete '/:id' => 'posts#destroy'
       end
       # image
