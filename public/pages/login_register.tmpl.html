@@ -3,6 +3,8 @@
             <div class="container" flex="40">
                 <h3 class="text-center">Register</h3>
                 <hr>
+                <p class="text-center text-success" ng-show="registerSuccess">Register Successful, Login Now!</p>
+                <p class="text-center text-danger" ng-show="registerError">Error! Please check your information!</p>
                 <form action="" class="col-sm-10 col-sm-offset-1" name="formRegister">
                     <md-input-container class="md-block">
                         <md-input-group>
