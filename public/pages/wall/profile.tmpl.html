@@ -1,0 +1,101 @@
+<div class="container home">
+    <toast></toast>
+    <div class="row">
+        <div class="col-sm-3">
+            <a ng-href="#/wall/{{ user.id }}">
+            <div class="avt">
+                <img ng-src="{{ user.avatar.thumb512.url }}" alt="avt" class="img-responsive center-block"/>
+                <hr>
+                <h3 class="text-center">
+                    <a ng-href="#/wall/{{ user.id }}">{{ user.name }}</a>
+                </h3>
+
+                <hr>
+            </div>
+            </a>
+        </div>
+        <div class="col-sm-9">
+
+            <div class="row" style="background-color: #ffffff; padding: 50px 0;">
+
+                <md-tabs id="tabs" md-dynamic-height md-border-bottom class="md-block">
+                    <md-tab label="Update Profile">
+                        <h2 class="text-center">Update Profile</h2>
+                        <hr>
+                        <form action="" name="form">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <md-input-container class="md-block">
+                                    <label>Email</label>
+                                    <input ng-model="user.email" disabled>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Full name</label>
+                                    <input ng-model="user.name" required ng-minlength="10">
+                                </md-input-container>
+                                <div layout="row">
+                                    <md-input-container flex>
+                                        <md-select ng-model="user.sex" placeholder="Sex?" required>
+                                            <md-option ng-value="0">Male</md-option>
+                                            <md-option ng-value="1">Female</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Date of birth</label>
+                                        <input type="text" ng-model="user.date_of_birth" required>
+                                    </md-input-container>
+                                </div>
+
+
+                                <md-input-container class="md-block">
+                                    <label>Status</label>
+                                    <textarea ng-model="user.status" md-maxlength="255" md-select-on-focus required ng-minlength="10"></textarea>
+                                </md-input-container>
+
+
+
+                            </div>
+                            <div class="col-sm-12">
+                                <hr>
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <md-button class="md-raised md-warn pull-left" href="#/wall/{{ user.id }}">Go Back<i class="fa fa-fw fa-arrow-circle-o-left"></i></md-button>
+                                    <md-button class="md-raised md-primary pull-right" ng-disabled="!form.$valid" ng-click="update()"><i class="fa fa-fw fa-save"></i>Update</md-button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </md-tab>
+                    <md-tab label="Change Password">
+                        <h2 class="text-center">Change Password</h2>
+                        <hr>
+                        <form action="" name="form2">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <md-input-container class="md-block">
+                                    <label>Email</label>
+                                    <input ng-model="user.email" disabled>
+                                </md-input-container>
+                                <md-input-container class="md-block" >
+                                    <label>New password</label>
+                                    <input ng-model="pass_new" type="password" required minlength="8">
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Password Confirmation</label>
+                                    <input ng-model="pass_confirm" type="password" required minlength="8">
+                                </md-input-container>
+                            </div>
+                            <div class="col-sm-12">
+                                <hr>
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <md-button class="md-raised md-warn pull-left" href="#/wall/{{ user.id }}">Go Back<i class="fa fa-fw fa-arrow-circle-o-left"></i></md-button>
+                                    <md-button class="md-raised md-primary pull-right" ng-disabled="!form2.$valid" ng-click="updatePassword(pass_new , pass_confirm)"><i class="fa fa-fw fa-save"></i>Submit</md-button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </md-tab>
+                </md-tabs>
+
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
