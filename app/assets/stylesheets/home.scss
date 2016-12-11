@@ -7,8 +7,24 @@ small {
   right: 80px;
 }
 
+#tabs-sticky-wrapper{
+  width: 99%;
+  margin-left: 5px;
+  box-sizing: inherit;
+}
+.is-sticky{
+}
+#tabs{
+  z-index: 1000!important;
+  background-color: #ffffff;
+}
+
+
 a:hover{
   text-decoration: none;
+}
+.navbar-default{
+  background-color: #ffffff;
 }
 .navbar-no-color{
   background-color: rgba(255, 255, 255, 0.2);
@@ -64,6 +80,10 @@ a:hover{
   .col-sm-6{
     padding: 0px 5px 0px 5px;
   }
+  .masonry-brick{
+    box-sizing: border-box;
+  }
+
   .post{
     margin: 5px 0px 5px 0px;
     padding: 15px;
@@ -78,6 +98,7 @@ a:hover{
       margin-right: 10px;
     }
     .post-images {
+      z-index: 500;
       img{
         box-sizing: border-box;
         -webkit-transition:  0.5s;
@@ -108,6 +129,7 @@ a:hover{
         padding: 0 2px 0 2px;
       }
       .img-33{
+        z-index: 500;
         overflow: hidden;
         position: relative;
         padding: 0 2px 0 2px;
@@ -124,7 +146,8 @@ a:hover{
     top: 45%;
     position: absolute;
     i {
-      color: rgba(255, 255, 255, 0.6);
+      text-shadow: 0 0 2px black;
+      color: rgba(255, 255, 255, 1);
     }
   }
   .img-next{
