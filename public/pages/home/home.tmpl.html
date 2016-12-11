@@ -6,26 +6,43 @@
                 <img ng-src="{{ user.avatar.thumb512.url }}" alt="avt" class="img-responsive center-block"/>
                 <hr>
                 <h3 class="text-center">
-                    <a href="#">{{ user.name }}</a>
+                    <a ng-href="#/wall/{{ user.id }}">{{ user.name }}</a>
                 </h3>
                 <hr>
             </div>
         </div>
         <div class="col-sm-9">
-            <div class="btn-group">
-                <button type="button" class="btn btn-lg btn-default" ng-click="changeMode('new')"> Mới nhất</button>
-                <button type="button" class="btn btn-lg btn-default"> Đánh giá</button>
-                <button type="button" class="btn btn-lg btn-default" ng-click="changeMode('bookmarks')"> Đã lưu</button>
+            <div class="row">
+                <md-tabs id="tabs" md-dynamic-height md-border-bottom class="md-block">
+                    <md-tab label="LATEST" ng-click="changeMode('new')">
+                    </md-tab>
+                    <md-tab label="Top Rate" ng-click="changeMode('rates')">
+                    </md-tab>
+                    <md-tab label="My bookmarks" ng-click="changeMode('bookmarks')">
+                    </md-tab>
+                    <md-tab label="Search" ng-click="search('search')">
+                        <div class="col-sm-6 col-sm-offset-3" layout-padding>
+                            <div class="input-group" ng-if="currentData.mode == 'search'">
+                                <input class="form-control" placeholder="ex: Hà Nội" type="text" ng-model="query">
+                                <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="searchBegin(query)">Search</button>
+                        </span>
+                            </div>
+                        </div>
+                    </md-tab>
+                </md-tabs>
             </div>
-            <hr>
 
-            <div class="row" masonry infinite-scroll="getPosts(currentData)" infinite-scroll-disabled="busy">
-                <div class="col-sm-6 masonry-brick" ng-repeat="post in currentData.data">
+            <div class="row" masonry-preserve-order masonry="" infinite-scroll="getPosts(currentData)" infinite-scroll-disabled="busy">
+
+
+
+                <div class="col-sm-6 masonry-brick" ng-repeat="post in currentData.data | orderBy:'-id'">
                     <div class="post">
                         <div class="post-header">
                             <img ng-src="{{ post.user.avatar.thumb128.url }}" alt="user avt" class="post-avt"/>
                             <span>
-                        <a href="#">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
+                        <a ng-href="#/wall/{{ post.user.id }}">{{ post.user.name }}</a> <small> in {{ fromNow(post.created_at) }}</small><span
                                     class="pull-right">
                                  <md-menu md-position-mode="target-right target">
                                       <md-button aria-label="Open demo menu" class="md-icon-button"
@@ -34,7 +51,7 @@
                                       </md-button>
                                       <md-menu-content width="2">
                                         <md-menu-item>
-                                          <md-button>
+                                          <md-button ng-click="createReport(post.id)">
                                               <div layout="row" flex>
                                                 <p flex>Report</p>
                                                 <md-icon md-menu-align-target
@@ -52,7 +69,7 @@
                                           </md-button>
                                         </md-menu-item>
                                           <md-menu-item ng-if="isOwn(post.user_id)">
-                                          <md-button>
+                                          <md-button ng-click="editPost($event, post)">
                                               <div layout="row" flex>
                                                 <p flex>Edit</p>
                                                 <md-icon md-menu-align-target
@@ -100,8 +117,6 @@
                 </div>
             </div>
             <hr>
-            <img class="img-responsive center-block" src="http://www.whattoexpect.com/groups/images/loading.gif"
-                 alt="loading" ng-show="busy">
         </div>
 
     </div>
