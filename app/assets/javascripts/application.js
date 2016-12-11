@@ -20,6 +20,7 @@
 //= require angular-animate/angular-animate.min
 //= require angular-material/angular-material.min
 //= require angular-route/angular-route.min
+//= require jquery-sticky/jquery.sticky
 //= require jquery-bridget/jquery-bridget
 //= require ev-emitter/ev-emitter
 //= require desandro-matches-selector/matches-selector
