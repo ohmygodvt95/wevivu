@@ -14,7 +14,7 @@ class SessionController < ApplicationController
   def destroy
     if logged_in?
       logout
-      render json: {status: 'success'}, status: :ok
+      redirect_to '/'
     else
       render json: {status: 'failure'}, status: :ok
     end
