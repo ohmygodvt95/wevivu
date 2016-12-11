@@ -1,0 +1,38 @@
+<md-dialog aria-label="Form" style="width: 100%;height: 100%;" class="post-dialog">
+    <md-dialog-content layout="row" style="height: 100%; width: 100%">
+        <div class="container-fluid info" flex style="overflow-y: auto;">
+            <input type="text" id="pac-input" class="controls"/>
+            <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div class="container-fluid info" flex style="overflow-y: auto;">
+            <p><span ng-click="cancel()" class="pull-right"><i class="fa fa-fw fa-close"></i></span></p>
+            <hr>
+            <h5>Status</h5>
+            <textarea name="" id="" class="form-control" placeholder="What are you doing now?"
+                      ng-model="post.body"></textarea>
+            <hr>
+            <i class="fa fa-map-marker fa-fw fa-2x"></i><a href="#/{{ post.location.lat}}, {{ post.location.long }}">{{ post.location.name }}</a>
+            <hr>
+            <h5>Images <i class="fa fa-spinner fa-pulse fa-fw" ng-show="doing"></i></h5>
+            <div class="col-md-3" ng-repeat="image in post.images">
+                <i class="fa fa-close delete-img" ng-click="deleteImage(image)"></i>
+                <img ng-src="{{ image.src.thumb256.url }}" alt="img" class="img-thumb img-responsive">
+            </div>
+            <div class="col-md-3">
+                <div ngf-select ngf-drop ng-model="files" ngf-model-invalid="invalidFiles" ngf-accept="'image/*'"
+                     style="color:#fff;background-color: rgba(0,0,0,0.6);line-height: 70px; box-shadow: 0px 0px 1px black;border-radius: 1px;margin-top: 5px; height: 70px; width: 100%; text-align: center; vertical-align: middle"
+                     ngf-multiple="false"
+                     class="drop-box"><i class="fa fa-fw fa-plus"></i>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <hr>
+
+                <md-button class="md-raised md-primary" ng-click="sendPost()">Send <i class="fa fa-spinner fa-pulse fa-fw" ng-show="sending"></i></md-button>
+            </div>
+        </div>
+
+    </md-dialog-content>
+</md-dialog>
+
