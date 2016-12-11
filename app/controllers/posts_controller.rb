@@ -74,12 +74,62 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
 
-    @post = Post.find(params[:id])
+    post = Post.find(params[:post][:id])
+    post.body = params[:post][:body]
 
-    if @post.update(post_params)
-      render json: {status: "success", data: {post: @post}}, status: :ok
+    # //location
+    post.location.name = params[:post][:location][:name]
+    post.location.lat = params[:post][:location][:lat]
+    post.location.long = params[:post][:location][:long]
+    # images
+    for new_img in params[:post][:images]
+      flag = 0
+      for old_img in post.images
+        if old_img.id == new_img[:id]
+          flag  = 1
+          break
+        end
+      end
+      if flag == 0
+        img = Image.find new_img[:id]
+        img.update_attributes(post_id: post.id, active: 1)
+      end
+    end
+
+    for old_img in post.images
+      flag = 0
+      for new_img in params[:post][:images]
+        if old_img.id == new_img[:id]
+          flag  = 1
+          break
+        end
+      end
+      if flag == 0
+        old_img.destroy
+      end
+    end
+
+    if post.save
+      render json: {
+          status: "success",
+          data: post.as_json(
+              include: [
+                  {
+                      user:
+                          {
+                              only: [:id, :name, :avatar]
+                          }
+                  },
+                  :location,
+                  {
+                      images: {
+                          only: [:id, :src]
+                      }
+                  },
+                  :rates
+              ])}, status: :ok
     else
-      render json: @post.errors, status: 404
+      render json: post.errors, status: 404
     end
 
   end
