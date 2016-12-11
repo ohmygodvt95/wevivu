@@ -1,4 +1,5 @@
-app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToast, Upload) {
+app.controller('WallController', function ($scope, $http, $location, $routeParams, $mdDialog, Data, ngToast, Upload) {
+    $scope.user_id = $routeParams.user_id;
     $scope.transfer = null;
     $scope.busy = false;
     $scope.currentData = {
@@ -11,6 +12,9 @@ app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToa
         data: []
     };
     /* function*/
+    $scope.sex = function (id) {
+        return id == 0 ? 'Male' : 'Female';
+    };
     $scope.fromNow = function (time) {
         return moment(time).fromNow();
     };
@@ -82,11 +86,15 @@ app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToa
     });
     /*user*/
     $scope.getUserData = function () {
-        $http.get(app.version + 'users/' + app.user_id).then(function (response) {
+        $http.get(app.version + 'users/' + $scope.user_id).then(function (response) {
+            // console.log($scope.user_id);
             $scope.user = response.data.data;
             $(document).ready(function(){
                 $("#sticker").sticky({topSpacing: 90});
+                $("#tabs").sticky({topSpacing: 79});
             });
+        }, function (response) {
+            $location.path('/error');
         });
 
     };
@@ -107,8 +115,196 @@ app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToa
             console.log(response.data);
         });
     };
-
+    /*report*/
+    $scope.createReport = function (post_id) {
+        $http.post(app.version + 'report', {report: {user_id: app.user_id, post_id: post_id}}).then(function (res) {
+            ngToast.create(res.data.data);
+        }, function () {
+            ngToast.create(res.data.data);
+        });
+    };
     /*Post get*/
+    $scope.editPost = function (ev, post) {
+        $mdDialog.show({
+            locals: {post: post},
+            controller: EditPostController,
+            templateUrl: '/pages/post_edit.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false
+        }).then(function (data) {
+            console.log(data);
+            $scope.currentData.data.forEach(function (v, i) {
+                if(data.id == v.id){
+                    console.log(1);
+                    $scope.currentData.data.splice(i, 1);
+                    $scope.currentData.data.unshift(data);
+                    return true;
+                }
+            });
+        });
+    };
+    function EditPostController($scope, $http, $timeout, Upload, post) {
+        $scope.doing = false;
+        $scope.sending = false;
+        // MOdel
+        // $scope.post = {
+        //     user_id: app.user_id,
+        //     body: '',
+        //     images: [],
+        //     location: {
+        //         name: 'Ha Noi, Viet Nam',
+        //         lat: 21.0227732,
+        //         long: 105.801944
+        //     }
+        // };
+        //Upload Images
+        $scope.deleteImage = function (img) {
+            $scope.post.images.forEach(function (v, i) {
+                if (v.id == img.id) {
+                    $scope.post.images.splice(i, 1);
+                    return null;
+                }
+            });
+        };
+
+        Upload.setDefaults({ngfKeep: true, ngfPattern: 'image/*'});
+
+        $scope.$watch('files', function (files) {
+            if (files != null) {
+                // console.log(files);
+                if (files.length > 0) {
+                    $scope.doing = true;
+                    $scope.file = files[files.length - 1];
+                    files.length = 0;
+                    Upload.upload({
+                        url: app.version + 'images',
+                        method: 'POST',
+                        data: {file: $scope.file}
+                    }).then(function (response) {
+                        if (response.data.status == 'success') {
+                            $scope.post.images.push(response.data.data);
+                            $scope.doing = false;
+                        }
+                    }, function () {
+                        $scope.doing = false;
+                    });
+                }
+            }
+        });
+
+        /*Map google api*/
+        $scope.map = null;
+
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.fromNow = function (time) {
+            return moment(time).fromNow();
+        };
+
+        $scope.init = function () {
+            //init map
+            //console.log($scope.location.name);
+            $scope.markerLatLng = new google.maps.LatLng($scope.post.location.lat, $scope.post.location.long);
+            $scope.infoWindow = new google.maps.InfoWindow;
+
+            $scope.map = new google.maps.Map(document.getElementById('map'), {
+                center: $scope.markerLatLng,
+                zoom: 13
+            });
+            // geocoder
+            function getInfo(event, string) {
+                var geoCoder = new google.maps.Geocoder;
+
+                geoCoder.geocode({'location': event}, function (results, status) {
+                    if (status == 'OK') {
+                        if (!results[1]) {
+                            alert('No results found');
+                        } else {
+                            $scope.markerLatLng = event;
+                            $scope.marker.setPosition($scope.markerLatLng);
+
+                            $scope.$apply(function () {
+                                $scope.post.location.name = string ? string : results[0].formatted_address;
+                                $scope.post.location.lat = $scope.markerLatLng.lat();
+                                $scope.post.location.long = $scope.markerLatLng.lng();
+                            });
+
+                            $scope.infoWindow.setContent($scope.post.location.name);
+                            $scope.infoWindow.open($scope.map, $scope.marker);
+
+                        }
+                    } else {
+                        alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            }
+
+            $scope.map.addListener('click', function (event) {
+                $scope.markerLatLng = event.latLng;
+                getInfo($scope.markerLatLng);
+            });
+
+            $scope.marker = new google.maps.Marker({
+                position: $scope.markerLatLng,
+                map: $scope.map
+            });
+
+            //add input
+            $scope.input = document.getElementById('pac-input');
+            $scope.searchBox = new google.maps.places.SearchBox($scope.input);
+            $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push($scope.input);
+            // Bias the SearchBox results towards current map's viewport.
+            $scope.map.addListener('bounds_changed', function () {
+                $scope.searchBox.setBounds($scope.map.getBounds());
+            });
+            // target
+            $scope.searchBox.addListener('places_changed', function () {
+                var places = $scope.searchBox.getPlaces();
+                if (places.length == 0) {
+                    return;
+                }
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function (place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+
+                    if (place.geometry.viewport) {
+                        getInfo(place.geometry.location, place.formatted_address);
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                $scope.map.fitBounds(bounds);
+            });
+        };
+
+        $scope.sendPost = function () {
+            $scope.sending = true;
+            $http.patch(app.version + 'posts/' + post.id, {post: $scope.post}).then(function (res) {
+                $scope.sending = false;
+                $mdDialog.hide(res.data.data);
+            }, function () {
+                alert("Please! Try again.");
+            });
+        };
+
+        $timeout(function () {
+            $http.get(app.version + "posts/" + post.id).then(function (response) {
+                $scope.post = response.data.data.post;
+                // console.log($scope.post);
+                $scope.init();
+            });
+        }, 100);
+    }
     $scope.deletePost = function (post) {
         $http.delete(app.version + 'posts/' + post.id).then(function (response) {
             //console.log(response.data);
@@ -122,7 +318,7 @@ app.controller('WallController', function ($scope, $http, $mdDialog, Data, ngToa
     };
     $scope.getPosts = function (data) {
         $scope.busy = true;
-        $http.get(app.version + 'home/' + data.mode + '?after=' + data.after + "&limit=" + data.limit + "&query=" + data.query)
+        $http.get(app.version + 'home/' + data.mode + '?after=' + data.after + "&user_id=" + $scope.user_id + "&limit=" + data.limit + "&query=" + data.query)
             .then(function (response) {
                 if (response.data.total > 0) {
                     data.after = response.data.after;
