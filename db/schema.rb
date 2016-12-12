@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116070513) do
+ActiveRecord::Schema.define(version: 20161211191331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,13 +50,10 @@ ActiveRecord::Schema.define(version: 20161116070513) do
     t.integer  "post_id"
     t.string   "title"
     t.string   "src"
+    t.integer  "active",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "active",     default: 0
-    t.integer  "type",       default: 0
   end
-
-  add_index "images", ["title"], name: "images_title_pk", unique: true, using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -73,8 +70,9 @@ ActiveRecord::Schema.define(version: 20161116070513) do
     t.integer  "category_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.json     "data",        default: {"comments"=>0, "rates"=>[0, 0, 0, 0, 0]}, null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
   end
 
   create_table "provinces", force: :cascade do |t|
@@ -92,19 +90,27 @@ ActiveRecord::Schema.define(version: 20161116070513) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
+    t.integer  "admin",           default: 0
     t.string   "password_digest"
     t.string   "name"
-    t.datetime "date_of_birth"
+    t.string   "date_of_birth"
     t.integer  "sex"
     t.string   "reset_token"
     t.string   "remember_token"
     t.string   "avatar"
     t.string   "cover"
     t.string   "status"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_foreign_key "bookmarks", "posts", on_delete: :cascade
@@ -120,4 +126,6 @@ ActiveRecord::Schema.define(version: 20161116070513) do
   add_foreign_key "posts", "users", on_delete: :cascade
   add_foreign_key "rates", "posts", on_delete: :cascade
   add_foreign_key "rates", "users", on_delete: :cascade
+  add_foreign_key "reports", "posts", on_delete: :cascade
+  add_foreign_key "reports", "users", on_delete: :cascade
 end

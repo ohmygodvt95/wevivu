@@ -8,7 +8,7 @@ app.controller('WallController', function ($scope, $http, $location, $routeParam
         after: 0,
         before: 0,
         total: 0,
-        limit: 20,
+        limit: 10,
         data: []
     };
     /* function*/
@@ -358,7 +358,7 @@ app.controller('WallController', function ($scope, $http, $location, $routeParam
     $scope.init();
 
 
-    function PostController($scope, $http, post) {
+    function PostController($scope, $http, post, $timeout, $interval) {
         function isContrain(e, arr){
             for(var i = 0; i < arr.length; i++){
                 if (e.id == arr[i].id) return true;
@@ -493,6 +493,29 @@ app.controller('WallController', function ($scope, $http, $location, $routeParam
                     };
                     $scope.getComments($scope.dataComments);
 
+
+                    $timeout(function () {
+                        $interval(function () {
+                            $http.get(app.version + 'posts/' + post.id).then(function (response) {
+                                $scope.data = response.data.data;
+                            });
+                        }, 10000);
+                    }, 5000);
+
+                    $timeout(function () {
+                        $interval(function () {
+                            $http.get(app.version
+                                + "realtime/comments?before="
+                                + $scope.dataComments.before
+                                + "&post_id=" + $scope.data.post.id
+                                + "&limit=" + 10).then(function (res) {
+                                res.data.data.forEach(function (v, i) {
+                                    if(!isContrain(v, $scope.dataComments.data)) $scope.dataComments.data.unshift(v);
+                                });
+                                $scope.dataComments.before = res.data.before;
+                            });
+                        }, 5000);
+                    }, 5000);
                 }
             });
 

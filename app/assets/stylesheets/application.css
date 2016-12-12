@@ -35,7 +35,7 @@ html, body {
 .main {
     padding-top: 70px;
     min-height: 100%;
-    background-image: url("http://hinhanhdephd.com/wp-content/uploads/2016/01/hinh-anh-dep-vinh-ha-long-9.jpg");
+    background-image: url("/images/background.jpg");
     background-position: center;
     background-size: cover;
 }

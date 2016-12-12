@@ -207,7 +207,7 @@ class HomeController < ApplicationController
         total: posts.count,
         limit: limit,
         after: posts.count == 0 ? after : posts.last.id,
-        before: after == MAX ? (posts.count == 0 ? 0 : posts.last.id) : 0
+        before: after == MAX ? (posts.count == 0 ? 0 : posts.first.id) : 0
     }, status: :ok
   end
 end

@@ -1,14 +1,15 @@
-app.controller('HomeController', function ($scope, $http, $mdDialog, Data, ngToast) {
+app.controller('HomeController', function ($scope, $http, $mdDialog, Data, ngToast, $interval, $timeout) {
 
     $scope.transfer = null;
     $scope.busy = false;
+
     $scope.currentData = {
         query: '',
         mode: 'new',
         after: 0,
         before: 0,
         total: 0,
-        limit: 20,
+        limit: 10,
         data: []
     };
 
@@ -23,6 +24,8 @@ app.controller('HomeController', function ($scope, $http, $mdDialog, Data, ngToa
         }
         return false;
     }
+
+
 
     $scope.$watch(function () {
         return Data.getData();
@@ -323,14 +326,39 @@ app.controller('HomeController', function ($scope, $http, $mdDialog, Data, ngToa
 
         });
     };
+    $scope.newPosts = 0;
+    function checkNewPost(){
+        if($scope.currentData.mode == 'new'){
+            $http.get(app.version + 'realtime?before=' + $scope.currentData.before).then(function (res) {
+                if(res.data.status == 'success'){
+                    $scope.newPosts = res.data.data;
+                    $timeout(function () {
+                        $scope.newPosts = 0;
+                    }, 5000);
+                }
+            });
+        }
+    }
+    $scope.getNewPosts = function () {
+        $http.get(app.version + 'realtime/new?before=' + $scope.currentData.before).then(function (res) {
+            res.data.data.forEach(function (v, i) {
+                if(!isContrain(v, $scope.currentData.data))
+                    $scope.currentData.data.unshift(v);
+            });
+            $scope.currentData.before = res.data.before;
+            $scope.newPosts = 0;
+            $('body, html').animate({scrollTop: 0}, 500);
+        });
+    };
     /*int */
     $scope.init = function () {
         $scope.getUserData();
+        $interval(checkNewPost, 15000);
     };
     $scope.init();
 
     /*Post detail*/
-    function PostController($scope, $http, post) {
+    function PostController($scope, $http, post, $timeout, $interval) {
         function isContrain(e, arr) {
             for (var i = 0; i < arr.length; i++) {
                 if (e.id == arr[i].id) return true;
@@ -470,6 +498,29 @@ app.controller('HomeController', function ($scope, $http, $mdDialog, Data, ngToa
                         return imagesArr[$scope.imgIndex].src.url;
                     };
                     $scope.getComments($scope.dataComments);
+
+                    $timeout(function () {
+                        $interval(function () {
+                            $http.get(app.version + 'posts/' + post.id).then(function (response) {
+                                $scope.data = response.data.data;
+                            });
+                        }, 10000);
+                    }, 5000);
+
+                    $timeout(function () {
+                        $interval(function () {
+                            $http.get(app.version
+                                + "realtime/comments?before="
+                                + $scope.dataComments.before
+                                + "&post_id=" + $scope.data.post.id
+                                + "&limit=" + 10).then(function (res) {
+                                res.data.data.forEach(function (v, i) {
+                                    if(!isContrain(v, $scope.dataComments.data)) $scope.dataComments.data.unshift(v);
+                                });
+                                $scope.dataComments.before = res.data.before;
+                            });
+                        }, 5000);
+                    }, 5000);
 
                 }
             });

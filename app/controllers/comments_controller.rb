@@ -84,7 +84,7 @@ class CommentsController < ApplicationController
         total: comments.count,
         limit: limit,
         after: comments.count == 0 ? after : comments.last.id,
-        before: after == MAX ? (comments.count == 0 ? 0 : comments.last.id) : 0
+        before: after == MAX ? (comments.count == 0 ? 0 : comments.first.id) : 0
     }, status: :ok
   end
 

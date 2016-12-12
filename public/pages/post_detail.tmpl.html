@@ -40,7 +40,7 @@
             </div>
             <hr>
             <div>
-                <div class="text-center text-primary" ng-show="data.post.data.comments > dataComments.total" ng-click="getComments(dataComments)"><span>show {{ dataComments.total }}/{{ data.post.data.comments }}! click to load more!</span></div>
+                <div class="text-center text-primary" ng-show="data.post.data.comments > dataComments.total" ng-click="getComments(dataComments)"><span>show {{ dataComments.data.length }}/{{ data.post.data.comments }}! click to load more!</span></div>
                 <ul>
                     <li class="col-sm-12" style="padding: 15px 5px 0px 5px;" ng-repeat="comment in dataComments.data | orderBy: 'id'">
                         <div class="col-sm-1" style="padding: 0px 0px 0px 5px;">

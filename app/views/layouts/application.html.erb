@@ -5,10 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wevivu</title>
+  <!-- Favicons -->
+  <link rel="icon" href="/images/footer-logo.png">
+  <link rel="apple-touch-icon" href="http://multifour.com/projects/select/demo/restaurant/images/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="http://multifour.com/projects/select/demo/restaurant/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="http://multifour.com/projects/select/demo/restaurant/images/favicons/apple-touch-icon-114x114.png">
+  <!--headerIncludes-->
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDCEZ8DButde0dy2DrGsVVoeOSlT3vA7P0&extension=.js&libraries=places"></script>
   <%= javascript_include_tag 'application' %>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <%= csrf_meta_tags %>
   <% if logged_in? %>
       <meta userid="<%= current_user.id %>">
