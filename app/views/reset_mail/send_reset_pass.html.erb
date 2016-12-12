@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>You have a request reset password, <%= @user.name %>!</h1>
+<p>Click/copy this link accept:</p>
+<hr>
+<a href="http://localhost:3000/password/edit/<%= @user.reset_token %>">http://localhost:3000/password/edit/<%= @user.reset_token %></a>
+</body>
+</html>
