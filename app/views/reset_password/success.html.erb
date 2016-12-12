@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row wall" >
+    <div class="col-sm-4 col-sm-offset-4" style="background-color: #fff; padding: 10px 50px 50px 40px">
+      <p>
+        <% if flash[:mess] %>
+          <div class="alert alert-success text-center">
+            <%= flash[:mess] %>
+          </div>
+        <% end %>
+      </p>
+      <a class="btn-primary btn-block btn" href="/">Go home</a>
+    </div>
+  </div>
+</div>
