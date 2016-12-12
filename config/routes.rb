@@ -20,8 +20,12 @@ Rails.application.routes.draw do
   scope :api do
 
     scope :v1 do
-      # report
-
+      # realtime
+      scope :realtime do
+        get '/' => 'realtime#show'
+        get '/new' =>  'realtime#new_posts'
+        get '/comments' =>  'realtime#show_comments'
+      end
 
       # report
       scope :report do
