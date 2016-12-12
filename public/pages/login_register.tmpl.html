@@ -56,7 +56,8 @@
                             <input type="password" ng-model="loginInfo.user.password" required>
                         </md-input-group>
                     </md-input-container>
-                    <md-button class="md-raised md-primary" ng-disabled="!formLogin.$valid" ng-click="login(loginInfo)">Login</md-button>
+                    <md-button class="md-raised md-primary btn-block" ng-disabled="!formLogin.$valid" ng-click="login(loginInfo)">Login</md-button>
+                    <p class="text-center"><small ><a href="/password">Forgot password?</a></small></p>
                 </form>
             </div>
         </md-dialog-content>
