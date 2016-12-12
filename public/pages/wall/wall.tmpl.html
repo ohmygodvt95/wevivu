@@ -121,11 +121,11 @@
                                         <hr>
                                         <span ng-click="showPostContent($event, post)"><i class="fa fa-fw fa-comments"></i>{{ post.data.comments}}</span>
                                         <span class="pull-right feeling" ng-click="showPostContent($event, post)">
-                                <span><i class="fa fa-fw fa-thumbs-o-up"></i>{{ post.data.rates[0] }}</span>
-                                <span ng-show="post.data.rates[1] > 0"><i class="fa fa-fw fa-heart-o"></i>{{ post.data.rates[1] }}</span>
-                                <span ng-show="post.data.rates[2] > 0"><i class="fa fa-fw fa-smile-o"></i>{{ post.data.rates[2] }}</span>
-                                <span ng-show="post.data.rates[3] > 0"><i class="fa fa-fw fa-hand-peace-o"></i>{{ post.data.rates[3] }}</span>
-                                <span ng-show="post.data.rates[4] > 0"><i class="fa fa-fw fa-heartbeat"></i>{{ post.data.rates[4] }}</span>
+                                <span><i class="fa fa-fw fa-thumbs-o-up"></i>{{ post.data.rates[4] }}</span>
+                                <span ng-if="post.data.rates[3] > 0"><i class="fa fa-fw fa-heart-o"></i>{{ post.data.rates[3] }}</span>
+                                <span ng-if="post.data.rates[2] > 0"><i class="fa fa-fw fa-smile-o"></i>{{ post.data.rates[2] }}</span>
+                                <span ng-if="post.data.rates[1] > 0"><i class="fa fa-fw fa-hand-peace-o"></i>{{ post.data.rates[1] }}</span>
+                                <span ng-if="post.data.rates[0] > 0"><i class="fa fa-fw fa-heartbeat"></i>{{ post.data.rates[0] }}</span>
                             </span>
                                     </div>
                                 </div>
