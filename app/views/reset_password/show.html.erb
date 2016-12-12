@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row wall" >
+    <div class="col-sm-4 col-sm-offset-4" style="background-color: #fff; padding: 10px 50px 100px 40px">
+      <h2 class="text-center">Reset Password</h2>
+      <hr>
+      <br>
+      <form action="/password" method="POST" name="form">
+        <% if flash[:mess] %>
+        <div class="alert alert-info">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        	<%= flash[:mess] %>
+        </div>
+        <% end %>
+        <md-input-container class="md-block">
+          <label for="">Email</label>
+          <input type="email" required name="email">
+        </md-input-container>
+        <md-button type="submit" class="md-raised md-primary md-button md-ink-ripple btn-block" ng-disabled="!form.$valid">Reset</md-button>
+      </form>
+    </div>
+  </div>
+</div>
