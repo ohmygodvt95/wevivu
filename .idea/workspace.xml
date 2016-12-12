@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9713fb0c-cbd8-4d74-9a86-000cffe22dbd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/3bcf508d-5b64-4ec1-8969-ec9c0b810809.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/3bcf508d-5b64-4ec1-8969-ec9c0b810809.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/home.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/home.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/comments_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/comments_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/home_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/home_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/home/index.html.erb" afterPath="$PROJECT_DIR$/app/views/home/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_footer.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_footer.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_navbar.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_navbar.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20161116061950_create_images.rb" afterPath="$PROJECT_DIR$/db/migrate/20161116061950_create_images.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/controllers/homeController.js" afterPath="$PROJECT_DIR$/public/js/controllers/homeController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/controllers/wallController.js" afterPath="$PROJECT_DIR$/public/js/controllers/wallController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/pages/home/home.tmpl.html" afterPath="$PROJECT_DIR$/public/pages/home/home.tmpl.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/pages/post_detail.tmpl.html" afterPath="$PROJECT_DIR$/public/pages/post_detail.tmpl.html" />
     </list>
     <list id="7f7c1617-8f92-4049-b31b-1ef3c04e5083" name="Failed commit: Default" comment="fix conflict merge sing-up" />
     <ignored path="wevivu.iws" />
@@ -1169,14 +1154,7 @@
       <workItem from="1481523621264" duration="44000" />
       <workItem from="1481524127346" duration="397000" />
       <workItem from="1481525480801" duration="10125000" />
-      <workItem from="1481555127611" duration="11581000" />
-    </task>
-    <task id="LOCAL-00019" summary="update&#10;">
-      <created>1479453451697</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1479453451697</updated>
+      <workItem from="1481555127611" duration="11594000" />
     </task>
     <task id="LOCAL-00020" summary="add version url api">
       <created>1479453762782</created>
@@ -1514,11 +1492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1481569264429</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="update final">
+      <created>1481569286145</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1481569286146</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131339000" />
+    <option name="totallyTimeSpent" value="131352000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1614,7 +1599,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="add uploader cover, avatar" />
     <MESSAGE value="add avatar, cover&#10;" />
     <MESSAGE value="edit image link" />
     <MESSAGE value="add route user wall&#10;" />
@@ -1639,7 +1623,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="add route" />
     <MESSAGE value="add realtime c" />
-    <option name="LAST_COMMIT_MESSAGE" value="add realtime c" />
+    <MESSAGE value="update final" />
+    <option name="LAST_COMMIT_MESSAGE" value="update final" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
