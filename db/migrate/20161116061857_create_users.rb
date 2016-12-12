@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :admin, default: 0
       t.string :password_digest
       t.string :name
-      t.datetime :date_of_birth
+      t.string :date_of_birth
       t.integer :sex
       t.string :reset_token
       t.string :remember_token
