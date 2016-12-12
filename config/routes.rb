@@ -9,11 +9,20 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'logout' => 'session#destroy'
   # get 'api/v1/users/:id' => 'users#show'
-
+  scope :password do
+    get '/' => 'reset_password#show'
+    get '/edit/:token' => 'reset_password#edit'
+    post '/' => 'reset_password#create'
+    post '/update' => 'reset_password#update'
+    get '/success' => 'reset_password#success'
+  end
 
   scope :api do
 
     scope :v1 do
+      # report
+
+
       # report
       scope :report do
         post '/' => 'report#create'
